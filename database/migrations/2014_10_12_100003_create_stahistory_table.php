@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateVerinfoTable extends Migration {
+class CreateStahistoryTable extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -12,15 +12,13 @@ class CreateVerinfoTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('Vehicle_info', function(Blueprint $table)
+		Schema::create('Station_history', function(Blueprint $table)
 		{
 			$table->increments('id');
-			$table->string('vehicle_type');
-			$table->string('brand');
-			$table->string('VIN');
-			$table->string('plates_number');
-			$table->string('color');
-			$table->string('cylinder_capacity');
+			$table->integer('id_card')->unsigned();
+			$table->foreign('id_card')->references('id')->on('Cards')->onDelete('cascade');
+			$table->datetime('date');
+			$table->string('info');
 			$table->timestamps();
 		});
 	}
@@ -32,7 +30,7 @@ class CreateVerinfoTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('Vehicle_info');
+		Schema::drop('Station_history');
 	}
 
 }

@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateStationTable extends Migration {
+class CreatePrepayTable extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -12,13 +12,12 @@ class CreateStationTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('Station', function(Blueprint $table)
+		Schema::create('Prepay', function(Blueprint $table)
 		{
 			$table->increments('id');
-			$table->string('name');
-			$table->string('id_city');
-			$table->string('dictrict');
-			$table->string('street');
+			$table->integer('id_card')->unsigned();
+			$table->foreign('id_card')->references('id')->on('Cards')->onDelete('cascade');
+			$table->date('expiry_date');
 			$table->timestamps();
 		});
 	}
@@ -30,7 +29,7 @@ class CreateStationTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('Station');
+		Schema::drop('Prepay');
 	}
 
 }

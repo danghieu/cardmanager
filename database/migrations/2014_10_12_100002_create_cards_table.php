@@ -17,12 +17,15 @@ class CreateCardsTable extends Migration {
 			$table->increments('id');
 			$table->string('number');
 			$table->string('status');
-			$table->string('id_owner');
-			$table->string('id_vehicle');
+			$table->integer('id_owner')->unsigned();
+			$table->integer('id_vehicle')->unsigned();
+			$table->integer('id_budget')->unsigned();
+			$table->foreign('id_owner')->references('id')->on('Owner_info')->onDelete('cascade');
+			$table->foreign('id_vehicle')->references('id')->on('Vehicle_info')->onDelete('cascade');
 			$table->string('date_issuance');
 			$table->string('place_issuance');
 			$table->string('level');
-			$table->string('id_budget');
+			$table->foreign('id_budget')->references('id')->on('Budget')->onDelete('cascade');
 			$table->timestamps();
 		});
 	}
