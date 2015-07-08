@@ -7,13 +7,23 @@
 			<div class="panel panel-default">
 				<div class="panel-heading">Đăng Kí</div>
 				<div class="panel-body">
+					@if (count($errors) > 0)
+						<div class="alert alert-danger">
+							<strong>Lỗi!</strong><br><br>
+							<ul>
+								@foreach ($errors->all() as $error)
+									<li>{{ $error }}</li>
+								@endforeach
+							</ul>
+						</div>
+					@endif
 					<form id="form-register" name="form-register" class="form-horizontal" role="form" method="POST" action="/auth/register">
 						<input type="hidden" name="_token" value="{{ csrf_token() }}">
 
 						<div class="form-group">
 							<label class="col-md-4 control-label">Tài Khoản</label>
 							<div class="col-md-6">
-								<input type="text" class="form-control" name="username" value="{{ old('name') }}">
+								<input type="text" class="form-control" name="name" value="{{ old('name') }}">
 							</div>
 						</div>
 
@@ -27,14 +37,14 @@
 						<div class="form-group">
 							<label class="col-md-4 control-label">Mật Khẩu</label>
 							<div class="col-md-6">
-								<input type="password" class="form-control" name="password">
+								<input type="password" class="form-control" id="password"  name="password">
 							</div>
 						</div>
 
 						<div class="form-group">
 							<label class="col-md-4 control-label">Nhập lại Mật khẩu</label>
 							<div class="col-md-6">
-								<input type="password" class="form-control" name="password_confirmation">
+								<input type="password" class="form-control" id="password_confirmation" name="password_confirmation">
 							</div>
 						</div>
 
