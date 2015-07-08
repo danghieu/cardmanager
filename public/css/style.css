@@ -1,0 +1,11 @@
+.error{font-weight: bold;color: #990000}
+.btn-bg{
+	background-color: #ffffff ;
+	color: #f15927;
+	border-color: #f15927;
+}
+.btn-bg:hover{
+	background-color:#f15927;
+	color: #ffffff !important;
+	border-color: #F0F0F0;
+}

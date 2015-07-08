@@ -5,9 +5,11 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>Laravel</title>
-
-	<link href="/css/app.css" rel="stylesheet">
-
+	<script src="http://code.jquery.com/jquery-1.11.1.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+	<link href="{{Asset('/css/app.css')}}" rel="stylesheet">
+	<link href="{{Asset('/css/style.css')}}" rel="stylesheet">
+    <script type="text/javascript" src="{{Asset('/js/jquery-validate/jquery.validate.js')}}"></script>
 	<!-- Fonts -->
 	<link href='//fonts.googleapis.com/css?family=Roboto:400,300' rel='stylesheet' type='text/css'>
 
