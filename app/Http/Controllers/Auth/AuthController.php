@@ -52,7 +52,9 @@ class AuthController extends Controller {
     {
         if ($this->auth->attempt($request->only('email', 'password')))
         {
-            return redirect('/home');
+            if($this->auth->user()->level==1)
+                return redirect('/home');
+            else return redirect('/adminhome');
         }
  
         return view('auth.login')->withErrors([
