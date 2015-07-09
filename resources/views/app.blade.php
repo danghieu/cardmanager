@@ -36,6 +36,9 @@
 			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 				<ul class="nav navbar-nav">
 					<li><a href="/">Trang chủ</a></li>
+					@if(Auth::user()->level!=1)
+					<li><a href="adminhome">Trang Quản Lý</a></li>
+					@endif
 				</ul>
 
 				<ul class="nav navbar-nav navbar-right">
