@@ -23,11 +23,13 @@
          @endif
         </td>
         <td>
+          @if($card->status==0)
           <button class="btn">Cấp thẻ</button>
+          @endif
           <button class="btn">Chỉnh sửa</button>
 
         </td>
       </tr>
     @endforeach
     </tbody>
-  </table>
+</table>

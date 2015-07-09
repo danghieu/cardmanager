@@ -8,6 +8,16 @@ function updateCardList() {
 	}
 }
 
+function updateAddCardView() {
+	if($(".cardmanager-body").length>0) {
+		$.ajax("addcardview", {			
+			success: function(response){
+				$(".cardmanager-body").html(response);			
+			}
+		});
+	}
+}
+
 $(document).ready(function(){
 	updateCardList();
 	licardslist=$('.li-cardslist');
@@ -25,6 +35,7 @@ $(document).ready(function(){
 		event.preventDefault();
 		cardmanagertools.children().children().removeClass('active');
 		$(this).addClass('active');
+		updateAddCardView();
 	});
 
 	$(".cardmanager-tools").on('click', '.li-issuance-card', function(event){

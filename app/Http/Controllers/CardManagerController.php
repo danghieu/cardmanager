@@ -41,5 +41,9 @@ class CardManagerController extends Controller {
 		$data=compact('cards','stt');
 		return view('admin.cardslist',$data);
 	}
+	public function addcardview()
+	{
+		return view('admin.addcardview');
+	}
 
 }
