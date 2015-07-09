@@ -3,6 +3,7 @@
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
 use App\User;
+use App\Card;
 use App\City;
 class DatabaseSeeder extends Seeder {
 
@@ -14,30 +15,31 @@ class DatabaseSeeder extends Seeder {
 	public function run()
 	{
 		Model::unguard();
-		City::create(array(
-			'name' => 'Ha Noi'
+		Card::create(array(
+			'number' => '0123456789'
 		));
 		User::create(array(
 			'name' => 'user',
 			'email' => 'user@admin.com',
 			'password' => bcrypt('user'),
-			'level' => 1,
-			'place_manage'=>1
+			'level' => 1
+			
 		));
 		User::create(array(
 			'name' => 'super',
 			'email' => 'super@super.com',
 			'password' => bcrypt('super'),
-			'level' => 2,
-			'place_manage'=>1
+			'level' => 2
+			
 		));
 		User::create(array(
 			'name' => 'admin',
 			'email' => 'admin@admin.com',
 			'password' => bcrypt('admin'),
-			'level' => 3,
-			'place_manage'=>1
+			'level' => 3
+			
 		));
+		
 
 		
 		// $this->call('UserTableSeeder');

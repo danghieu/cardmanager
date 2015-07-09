@@ -9,3 +9,7 @@
 	color: #ffffff !important;
 	border-color: #F0F0F0;
 }
+span {font-weight: bold;}
+.span-primary{color: #337ab7}
+.span-success{color: #5cb85c}
+.span-block{color: #919495}

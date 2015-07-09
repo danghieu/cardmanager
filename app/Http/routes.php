@@ -21,3 +21,6 @@ Route::controllers([
 	'auth' => 'Auth\AuthController',
 	'password' => 'Auth\PasswordController',
 ]);
+
+Route::get('admincardmananger', 'CardManagerController@index');
+Route::get('cardslist', 'CardManagerController@cardslist');

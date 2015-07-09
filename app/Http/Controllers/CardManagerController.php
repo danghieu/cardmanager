@@ -1,6 +1,8 @@
 <?php namespace App\Http\Controllers;
 
-class AdminHomeController extends Controller {
+use App\Card;
+
+class CardManagerController extends Controller {
 
 	/*
 	|--------------------------------------------------------------------------
@@ -30,7 +32,14 @@ class AdminHomeController extends Controller {
 	 */
 	public function index()
 	{
-		return view('admin.adminhome');
+		return view('admin.cardmanager');
+	}
+	public function cardslist()
+	{
+		$cards=Card::all();
+		$stt=1;
+		$data=compact('cards','stt');
+		return view('admin.cardslist',$data);
 	}
 
 }

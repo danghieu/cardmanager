@@ -20,7 +20,7 @@ class CreateUsersTable extends Migration {
 			$table->string('password', 60);
 			$table->string('level')->default(1);
 			$table->string('status')->default(1);
-			$table->integer('place_manage')->unsigned()->default(1);
+			$table->integer('place_manage')->unsigned()->nullable();
 			$table->foreign('place_manage')->references('id')->on('City');
 			$table->rememberToken();
 			$table->timestamps();
