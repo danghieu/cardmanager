@@ -55,7 +55,7 @@ class AuthController extends Controller {
             return redirect('/home');
         }
  
-        return redirect('/login')->withErrors([
+        return view('auth.login')->withErrors([
             'email' => 'Không tồn tại tài khoản với địa chỉ email này!',
         ]);
     }
