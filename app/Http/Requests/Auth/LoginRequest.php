@@ -12,10 +12,22 @@ class LoginRequest extends FormRequest {
     public function rules()
     {
         return [
-            'email' => 'required', 'password' => 'required',
+            'email' => 'required',
+            'password' => 'required',
         ];
     }
  
+    public function messages()
+    {
+        return [
+
+            'email.required' => 'Vui lòng nhập địa chỉ email của bạn!',
+            'email.email' => 'Vui lòng nhập đúng địa chỉ email!',
+            'password.required' => 'Vui lòng nhập mật khẩu của bạn!',
+
+        ];
+    }
+
     /**
      * Determine if the user is authorized to make this request.
      *
