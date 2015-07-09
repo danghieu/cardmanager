@@ -92,7 +92,6 @@ class AuthController extends Controller {
 		$this->user->name = $request->name;
         $this->user->email = $request->email;
         $this->user->password = bcrypt($request->password);
-        $this->user->place_manage = 1;
         $this->user->save();
         $this->auth->login($this->user);
         return redirect('/home'); 
