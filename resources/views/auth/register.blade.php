@@ -1,5 +1,7 @@
 @extends('app')
-
+@section('title')
+Đăng kí
+@endsection
 @section('content')
 <div class="container-fluid">
 	<div class="row">

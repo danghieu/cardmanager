@@ -1,5 +1,7 @@
 @extends('app')
-
+@section('title')
+Đăng nhập
+@endsection
 @section('content')
 <div class="container-fluid">
 	<div class="row">
@@ -47,7 +49,7 @@
 
 						<div class="form-group">
 							<div class="col-md-6 col-md-offset-4">
-								<button type="submit" class="btn btn-primary" style="margin-right: 15px;">
+								<button type="submit" class="btn btn-bg" style="margin-right: 15px;">
 									Đăng nhập
 								</button>
 
