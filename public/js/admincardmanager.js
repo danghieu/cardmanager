@@ -1,6 +1,6 @@
-function updateCardList() {
+function updateCardListView() {
 	if($(".cardmanager-body").length>0) {
-		$.ajax("cardslist", {			
+		$.ajax("cardslistview", {			
 			success: function(response){
 				$(".cardmanager-body").html(response);			
 			}
@@ -19,7 +19,7 @@ function updateAddCardView() {
 }
 
 $(document).ready(function(){
-	updateCardList();
+	updateCardListView();
 	licardslist=$('.li-cardslist');
 	licardslist.addClass('active');
 	cardmanagertools = $('.cardmanager-tools');
@@ -28,7 +28,7 @@ $(document).ready(function(){
 		event.preventDefault();
 		cardmanagertools.children().children().removeClass('active');
 		$(this).addClass('active');
-		updateCardList();
+		updateCardListView();
 	});
 
 	$(".cardmanager-tools").on('click', '.li-add-card', function(event){

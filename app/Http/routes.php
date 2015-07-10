@@ -23,6 +23,7 @@ Route::controllers([
 ]);
 
 Route::get('admincardmananger', 'CardManagerController@index');
+Route::get('cardslistview', 'CardManagerController@cardslistview');
 Route::get('cardslist', 'CardManagerController@cardslist');
 Route::get('addcardview', 'CardManagerController@addcardview');
 Route::post('addcardview', 'CardManagerController@addcard');

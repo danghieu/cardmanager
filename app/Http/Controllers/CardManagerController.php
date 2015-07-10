@@ -37,9 +37,17 @@ class CardManagerController extends Controller {
 	{
 		return view('admin.cardmanager');
 	}
-	public function cardslist()
+	public function cardslistview()
 	{
-		$cards=Card::all();
+		return view('admin.cardslistview');
+	}
+	public function cardslist(Request $request)
+	{
+		$type =$request->get('type');
+		if(!is_numeric($request->get('type')))
+			$cards=Card::all();
+		else $cards=Card::getCardsList($type);
+
 		$stt=1;
 		$data=compact('cards','stt');
 		return view('admin.cardslist',$data);

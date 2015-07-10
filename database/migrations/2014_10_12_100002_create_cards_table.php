@@ -16,7 +16,7 @@ class CreateCardsTable extends Migration {
 		{
 			$table->increments('id');
 			$table->string('number');
-			$table->string('status')->default(0);
+			$table->integer('status')->default(0);
 			$table->integer('id_owner')->unsigned()->nullable();
 			$table->integer('id_vehicle')->unsigned()->nullable();
 			$table->integer('id_budget')->unsigned()->nullable();
