@@ -35,9 +35,10 @@
 
 			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 				<ul class="nav navbar-nav">
-					@if (Auth::guest())	
+					@if(Auth::guest()||Auth::user()->level == 1)	
 					<li><a href="/">Trang chủ</a></li>
-					@elseif(Auth::user()->level == 2 || Auth::user()->level == 3)
+					@else
+					<li><a href="/">Trang chủ</a></li>
 					<li><a href="adminhome">Trang Quản Lý</a></li>
 					@endif
 				</ul>

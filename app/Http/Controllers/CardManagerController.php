@@ -1,6 +1,9 @@
 <?php namespace App\Http\Controllers;
 
 use App\Card;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Routing\Redirector;
 
 class CardManagerController extends Controller {
 
@@ -44,6 +47,29 @@ class CardManagerController extends Controller {
 	public function addcardview()
 	{
 		return view('admin.addcardview');
+	}
+
+	public function addcard(Request $request)
+	{
+		$rules = array(
+		    'cardnumber'    => 'required|min:10|max:10'
+		);
+
+		$validator = Validator::make($request->all(), $rules);
+
+		if ($validator->fails()) {
+		    return view('admin.addcardview')
+		        ->withErrors($validator) 
+		        ->withInput($request); 
+		} else {
+			if((Card::cardnumber_exist($request->get('cardnumber'))=="true"))
+				return  view('admin.addcardview')->with('fail', "Thẻ này đã tồn tại!");
+			else{
+				$card = new Card();
+				$card->createcard($request->get('cardnumber'));
+		    	return  view('admin.addcardview')->with('success', "Thêm Thẻ thành công!");
+			}
+		}
 	}
 
 }
