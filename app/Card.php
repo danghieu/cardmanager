@@ -28,4 +28,9 @@ class Card extends Model {
 	public static function getCardsList($type) {
 		return Card::where('status', $type)->get();
 	}
+
+	public static function CardsSearch($cardnumber) {
+		$cardnumber="%".$cardnumber."%";
+		return Card::where('number','LIKE' ,$cardnumber)->get();
+	}
 }

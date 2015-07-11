@@ -54,6 +54,15 @@ class CardManagerController extends Controller {
 		$data=compact('cards','stt');
 		return view('admin.cardslist',$data);
 	}
+	public function cardslistpost(Request $request)
+	{
+		$cardnumber =$request->get('q');
+		$cards=Card::CardsSearch($cardnumber);
+		$stt=1;
+		$data=compact('cards','stt');
+		return view('admin.cardslist',$data);
+	}
+
 	public function addcardview()
 	{
 		return view('admin.addcardview');
