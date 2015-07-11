@@ -15,7 +15,7 @@ class CreateVerinfoTable extends Migration {
 		Schema::create('Vehicle_info', function(Blueprint $table)
 		{
 			$table->increments('id');
-			$table->integer('vehicle_type')->unsigned();
+			$table->integer('vehicle_type')->unsigned()->nullable();
 			$table->foreign('vehicle_type')->references('id')->on('Vehicle_type')->onDelete('cascade');
 			$table->string('brand');
 			$table->string('VIN');

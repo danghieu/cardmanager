@@ -27,3 +27,6 @@ Route::get('cardslistview', 'CardManagerController@cardslistview');
 Route::get('cardslist', 'CardManagerController@cardslist');
 Route::get('addcardview', 'CardManagerController@addcardview');
 Route::post('addcardview', 'CardManagerController@addcard');
+Route::get('cardissuanceview', 'CardManagerController@cardissuanceview');
+Route::post('cardissuanceview', 'CardManagerController@cardissuance');
+Route::get('addcardinfoview', 'CardManagerController@addcardinfoview');

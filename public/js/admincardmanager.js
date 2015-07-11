@@ -18,6 +18,16 @@ function updateAddCardView() {
 	}
 }
 
+function updateCardIssuanceView() {
+	if($(".cardmanager-body").length>0) {
+		$.ajax("cardissuanceview", {			
+			success: function(response){
+				$(".cardmanager-body").html(response);			
+			}
+		});
+	}
+}
+
 $(document).ready(function(){
 	updateCardListView();
 	licardslist=$('.li-cardslist');
@@ -42,6 +52,7 @@ $(document).ready(function(){
 		event.preventDefault();
 		cardmanagertools.children().children().removeClass('active');
 		$(this).addClass('active');
+		updateCardIssuanceView()
 	});
 
 	$(".cardmanager-tools").on('click', '.li-require', function(event){

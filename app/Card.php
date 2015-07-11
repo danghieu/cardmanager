@@ -16,6 +16,15 @@ class Card extends Model {
 		return false;
 	}
 
+	public static function getCardByNumber($cardnumber)
+    {
+    	$cards = Card::where('number',$cardnumber);
+    	if($cards->count()>0)
+    		return $cards->first();
+    	else
+    		return null;
+    }
+
 	public static function getCardsList($type) {
 		return Card::where('status', $type)->get();
 	}

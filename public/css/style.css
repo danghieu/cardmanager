@@ -13,3 +13,12 @@ span {font-weight: bold;}
 .span-primary{color: #337ab7}
 .span-success{color: #5cb85c}
 .span-block{color: #919495}
+.cardmanager-body{padding-top: 10px;}
+.addcardinfo-thumb{width: 30px}
+.container{padding-top: 30px;}
+div.owner-info  .control-label {text-align: left !important;}
+.auth {padding-top: 40px;}
+.navbar-default {
+  background-color: rgba(211, 211, 211, 0.75);
+  border-color: #e7e7e7;
+}
