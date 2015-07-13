@@ -12,6 +12,7 @@
 	        <li><a href="#">Quản Lý Trạm</a></li>
 	        <li><a href="#">Quản Lý Sai Phạm</a></li>
 	        <li><a href="#">Quản Lý Người Dùng</a></li>
+	        <li><a class="general" href="#">Quản Lý Mục Chung</a></li>
       </ul>
 		</div>
 		<div class="col-md-10">
@@ -24,3 +25,4 @@
 	</div>
 </div>
 @endsection
+ 

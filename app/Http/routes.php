@@ -22,6 +22,7 @@ Route::controllers([
 	'password' => 'Auth\PasswordController',
 ]);
 
+//Card manager
 Route::get('admincardmananger', 'CardManagerController@index');
 Route::get('cardslistview', 'CardManagerController@cardslistview');
 Route::get('cardslist', 'CardManagerController@cardslist');
@@ -31,3 +32,8 @@ Route::post('addcardview', 'CardManagerController@addcard');
 Route::get('cardissuanceview', 'CardManagerController@cardissuanceview');
 Route::post('cardissuanceview', 'CardManagerController@cardissuance');
 Route::get('addcardinfoview', 'CardManagerController@addcardinfoview');
+
+//General
+Route::get('admingeneral', 'GeneralController@index');
+Route::get('citieslistview', 'GeneralController@citieslistview');
+Route::get('citieslist', 'GeneralController@citieslist');
