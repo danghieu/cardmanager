@@ -2,9 +2,17 @@
 
 use Illuminate\Auth\Authenticatable;
 use Illuminate\Database\Eloquent\Model;
+use App\Owner_info;
 class Card extends Model {
 	protected $table = 'cards';
-
+	public function ownerInfo()
+    {
+        return $this->belongsTo('App\Owner_info', 'id_owner');
+    }
+    public function vehicleInfo()
+    {
+        return $this->belongsTo('App\VehicleInfo', 'id_vehicle');
+    }
 	public function createcard($number){
 		$this->number=$number;
 		$this->save();
@@ -16,7 +24,7 @@ class Card extends Model {
 		return false;
 	}
 
-	public static function getCardByNumber($cardnumber)
+	public function getCardByNumber($cardnumber)
     {
     	$cards = Card::where('number',$cardnumber);
     	if($cards->count()>0)
@@ -32,5 +40,13 @@ class Card extends Model {
 	public static function CardsSearch($cardnumber) {
 		$cardnumber="%".$cardnumber."%";
 		return Card::where('number','LIKE' ,$cardnumber)->get();
+	}
+
+	public  function addInfoCard($input) {
+		$card = Card::getCardByNumber($input->get('cardnumber'));
+		$card->status=1;
+		$card->place_issuance=$input->get("place_issuance");
+		$card->date_issuance=$input->get("date_issuance");
+		$card->save();
 	}
 }

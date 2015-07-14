@@ -2,7 +2,9 @@
 
 use App\Card;
 use App\City;
+use App\Owner_info;
 use App\VehicleType;
+use App\VehicleInfo;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Routing\Redirector;
@@ -71,7 +73,7 @@ class CardManagerController extends Controller {
 	public function addcard(Request $request)
 	{
 		$rules = array(
-		    'cardnumber'    => 'required|min:10|max:10'
+		    'cardnumber'    => 'required|min:8|max:8'
 		);
 
 		$validator = Validator::make($request->all(), $rules);
@@ -93,41 +95,77 @@ class CardManagerController extends Controller {
 
 	public function cardissuanceview()
 	{
-		return view('admin.cardissuanceview');
+		$city=City::all();
+		$vehicle_type=VehicleType::all();
+		$data=compact('city','vehicle_type');
+		return view('admin.cardissuanceview',$data);
 	}
-	public function cardissuance(Request $request)
-	{
+
+	public function check_cardtoissuance(Request $request){
 		$cardnumber=$request->get("cardnumber");
-		$rules = array(
-		    'cardnumber'    => 'required|min:10|max:10'
-		);
+		$card = new Card();
+		$card =$card->getCardByNumber($cardnumber);
+		if($card!=null)
+			if($card->status==0)
+				return 'true';
+		else return "false";
 
-		$validator = Validator::make($request->all(), $rules);
-
-		if ($validator->fails()) {
-		    return view('admin.cardissuanceview')
-		        ->withErrors($validator) 
-		        ->withInput($cardnumber); 
-		} else {
-			$card=Card::getCardByNumber($cardnumber);
-			if((Card::cardnumber_exist($cardnumber)=="true"))
-				if($card->status==1)
-					return  view('admin.cardissuanceview')->with('fail', "Thẻ này đã được cấp!")->withInput($cardnumber);
-				else if($card->status==2)
-					return  view('admin.cardissuanceview')->with('fail', "Thẻ này đã bị khóa!")->withInput($cardnumber);					
-				else return  view('admin.cardissuanceview')->with('success', "Xin Hãy nhập thông tin bên dưới!")->withInput($cardnumber);
-			else{		
-		    	return  view('admin.cardissuanceview')->with('fail', "Thẻ này không tồn tại!")->withInput($cardnumber);
-			}
-		}
 	}
 
-	public function addcardinfoview()
+	public function cardissuance(Request $request)
 	{
 		$city=City::all();
 		$vehicle_type=VehicleType::all();
 		$data=compact('city','vehicle_type');
-		return view('admin.addcardinfoview',$data);
+		$cardnumber=$request->get("cardnumber");
+		$rules = array(
+		    'cardnumber'				=> 'required|min:8|max:8',
+		    'lastname'    				=> 'required|min:2',
+		    'firstname'					=> 'required|min:1',
+		    'indentify_card'			=> 'required|min:9',
+		    'birthday'					=> 'required',
+		    'phonenumber'				=> 'required|min:6',
+		    'city'						=> 'required|min:1',
+		    'district'					=> 'required|min:1',
+		    'vehicle_type'				=> 'required|min:1',
+		    'vehicle_brand'				=> 'required|min:1',
+		    'vehicle_VIN'				=> 'required|min:6',
+		    'vehicle_plates_number'		=> 'required|min:4',
+		    'vehicle_cylinder_capacity'	=> 'required',
+		    'vehicle_color'					=> 'required|min:1'
+		);
+
+		$validator = Validator::make($request->all(), $rules);
+
+		
+
+			$card = new Card();
+			$card =$card->getCardByNumber($cardnumber);
+			if((Card::cardnumber_exist($cardnumber)=="true"))
+				if($card->status==1)
+					return  view('admin.cardissuanceview',$data)->with('fail', "Thẻ này đã được cấp!")->withInput($request);
+				else if($card->status==2)
+					return  view('admin.cardissuanceview',$data)->with('fail', "Thẻ này đã bị khóa!")->withInput($request);					
+				else{
+					
+					if ($validator->fails()) {
+
+					    return view('admin.cardissuanceview',$data)
+					    	->withInput($request)
+					        ->withErrors($validator); 
+		      
+					} else {
+						$Owner_info = new Owner_info();
+						$Owner_info->AddinfoOwner($request);
+						$VehicleInfo = new VehicleInfo();
+						$VehicleInfo->AddinfoVehicle($request);
+						return  view('admin.cardissuanceview',$data)->with('success', "Thông tin đã được cập nhật!")->withInput($request);
+					} 
+				}
+			else{		
+		    	return  view('admin.cardissuanceview',$data)->with('fail', "Thẻ này không tồn tại!")->withInput($request);
+			}
+		
 	}
 
 }
