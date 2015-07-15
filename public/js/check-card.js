@@ -1,4 +1,4 @@
-$("#issuance-card-form").validate({
+$("form").validate({
 	rules:{
 		cardnumber:{
 			required:true,

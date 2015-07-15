@@ -15,8 +15,8 @@ class CreateStahistoryTable extends Migration {
 		Schema::create('Station_history', function(Blueprint $table)
 		{
 			$table->increments('id');
-			$table->integer('id_card')->unsigned();
-			$table->foreign('id_card')->references('id')->on('Cards')->onDelete('cascade');
+			$table->integer('card')->unsigned();
+			$table->foreign('card')->references('id')->on('Cards')->onDelete('cascade');
 			$table->datetime('date');
 			$table->string('info');
 			$table->timestamps();

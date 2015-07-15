@@ -15,8 +15,9 @@ class CreatePrepayTable extends Migration {
 		Schema::create('Prepay', function(Blueprint $table)
 		{
 			$table->increments('id');
-			$table->integer('id_card')->unsigned();
-			$table->foreign('id_card')->references('id')->on('Cards')->onDelete('cascade');
+			$table->integer('card')->unsigned();
+			$table->foreign('card')->references('id')->on('Cards')->onDelete('cascade');
+			$table->date('start_date');
 			$table->date('expiry_date');
 			$table->timestamps();
 		});

@@ -3,6 +3,7 @@
 use Illuminate\Auth\Authenticatable;
 use Illuminate\Database\Eloquent\Model;
 use App\Card;
+use App\City;
 class Owner_info extends Model {
 
 
@@ -10,7 +11,11 @@ class Owner_info extends Model {
 
 	public function Card()
     {
-        return $this->hasMany('App\Card', 'id_owner');
+        return $this->hasMany('App\Card', 'owner');
+    }
+    public function City()
+    {
+        return $this->hasOne('App\City', 'city');
     }
     public  function AddinfoOwner($input)
     {	

@@ -17,15 +17,16 @@ class CreateCardsTable extends Migration {
 			$table->increments('id');
 			$table->string('number');
 			$table->integer('status')->default(0);
-			$table->integer('id_owner')->unsigned()->nullable();
-			$table->integer('id_vehicle')->unsigned()->nullable();
-			$table->integer('id_budget')->unsigned()->nullable();
-			$table->foreign('id_owner')->references('id')->on('Owner_info')->onDelete('cascade');
-			$table->foreign('id_vehicle')->references('id')->on('Vehicle_info')->onDelete('cascade');
-			$table->string('date_issuance');
-			$table->string('place_issuance');
+			$table->integer('owner')->unsigned()->nullable();
+			$table->integer('vehicle')->unsigned()->nullable();
+			$table->integer('card_budget')->unsigned()->nullable();
+			$table->foreign('owner')->references('id')->on('Owner_info')->onDelete('cascade');
+			$table->foreign('vehicle')->references('id')->on('Vehicle_info')->onDelete('cascade');
+			$table->date('date_issuance');
+			$table->integer('place_issuance')->unsigned()->nullable();
+			$table->foreign('place_issuance')->references('id')->on('City')->onDelete('cascade');
 			$table->string('level')->default(1);
-			$table->foreign('id_budget')->references('id')->on('Budget')->onDelete('cascade');
+			$table->foreign('card_budget')->references('id')->on('Card_Budget')->onDelete('cascade');
 			$table->timestamps();
 		});
 	}

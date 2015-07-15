@@ -1,7 +1,8 @@
-<div class="issuance-card">
+<div class="issuance-card ">
+	<form id="issuance-card-form" class="form-horizontal" role="form" method="POST" action="{{ url('addcardview') }}">
+		<input type="hidden" id="_token" name="_token" value="{{ csrf_token() }}">
 	<div class="card">
-		<form id="issuance-card-form" class="form-horizontal" role="form" method="POST" action="{{ url('addcardview') }}">
-			<input type="hidden" id="_token" name="_token" value="{{ csrf_token() }}">
+		
 			<div class="form-group">
 				<label class="col-md-4 control-label">Số Thẻ:</label>
 				<div class="col-md-4">
@@ -51,8 +52,9 @@
 				</ul>
 			</div>
 		@endif
-		<div class="card-info">
-			<div class="container-fluid owner-info col-md-6">
+	</div>
+	
+		<div class="container-fluid owner-info col-md-6">
 			<div class="row">
 				<div class="col-md-12 ">
 					<div class="panel panel-default">
@@ -189,11 +191,11 @@
 					</button>
 				</div>
 			</div>
-	</div>
+	
 	</form>
-</div>
+
 	
 </div>
 <script src="{{Asset('js/cardissuanceview.js')}}"></script>
 <script type="text/javascript" src="{{Asset('/js/jquery-validate/jquery.validate.min.js')}}"></script>
-<script src="{{Asset('js/check-cardtoissuance.js')}}"></script>
+<script src="{{Asset('js/check-card.js')}}"></script>

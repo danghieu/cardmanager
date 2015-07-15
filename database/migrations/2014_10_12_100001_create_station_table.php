@@ -16,11 +16,11 @@ class CreateStationTable extends Migration {
 		{
 			$table->increments('id');
 			$table->string('name');
-			$table->integer('id_city')->unsigned();
+			$table->integer('city')->unsigned()->nullable();
 			$table->string('dictrict');
 			$table->string('street');
 			$table->timestamps();
-			$table->foreign('id_city')->references('id')->on('City')->onDelete('cascade');
+			$table->foreign('city')->references('id')->on('City')->onDelete('cascade');
 		});
 	}
 

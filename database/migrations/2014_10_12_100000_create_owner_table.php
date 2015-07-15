@@ -21,7 +21,8 @@ class CreateOwnerTable extends Migration {
 			$table->date('birthday');
 			$table->string('phone_number');
 			$table->string('nationality');
-			$table->string('city');
+			$table->integer('city')->unsigned()->nullable();
+			$table->foreign('city')->references('id')->on('City')->onDelete('cascade');
 			$table->string('district');
 			$table->string('street');
 			$table->timestamps();

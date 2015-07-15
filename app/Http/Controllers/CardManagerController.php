@@ -39,11 +39,11 @@ class CardManagerController extends Controller {
 	 */
 	public function index()
 	{
-		return view('admin.cardmanager');
+		return view('admin.cardmanager.cardmanager');
 	}
 	public function cardslistview()
 	{
-		return view('admin.cardslistview');
+		return view('admin.cardmanager.cardslistview');
 	}
 	public function cardslist(Request $request)
 	{
@@ -54,7 +54,7 @@ class CardManagerController extends Controller {
 
 		$stt=1;
 		$data=compact('cards','stt');
-		return view('admin.cardslist',$data);
+		return view('admin.cardmanager.cardslist',$data);
 	}
 	public function cardslistpost(Request $request)
 	{
@@ -62,12 +62,12 @@ class CardManagerController extends Controller {
 		$cards=Card::CardsSearch($cardnumber);
 		$stt=1;
 		$data=compact('cards','stt');
-		return view('admin.cardslist',$data);
+		return view('admin.cardmanager.cardslist',$data);
 	}
 
 	public function addcardview()
 	{
-		return view('admin.addcardview');
+		return view('admin.cardmanager.addcardview');
 	}
 
 	public function addcard(Request $request)
@@ -79,16 +79,16 @@ class CardManagerController extends Controller {
 		$validator = Validator::make($request->all(), $rules);
 
 		if ($validator->fails()) {
-		    return view('admin.addcardview')
+		    return view('admin.cardmanager.addcardview')
 		        ->withErrors($validator) 
 		        ->withInput($request); 
 		} else {
 			if((Card::cardnumber_exist($request->get('cardnumber'))=="true"))
-				return  view('admin.addcardview')->with('fail', "Thẻ này đã tồn tại!");
+				return  view('admin.cardmanager.addcardview')->with('fail', "Thẻ này đã tồn tại!");
 			else{
 				$card = new Card();
 				$card->createcard($request->get('cardnumber'));
-		    	return  view('admin.addcardview')->with('success', "Thêm Thẻ thành công!");
+		    	return  view('admin.cardmanager.addcardview')->with('success', "Thêm Thẻ thành công!");
 			}
 		}
 	}
@@ -98,7 +98,7 @@ class CardManagerController extends Controller {
 		$city=City::all();
 		$vehicle_type=VehicleType::all();
 		$data=compact('city','vehicle_type');
-		return view('admin.cardissuanceview',$data);
+		return view('admin.cardmanager.cardissuanceview',$data);
 	}
 
 	public function check_cardtoissuance(Request $request){
@@ -143,14 +143,14 @@ class CardManagerController extends Controller {
 			$card =$card->getCardByNumber($cardnumber);
 			if((Card::cardnumber_exist($cardnumber)=="true"))
 				if($card->status==1)
-					return  view('admin.cardissuanceview',$data)->with('fail', "Thẻ này đã được cấp!")->withInput($request);
+					return  view('admin.cardmanager.cardissuanceview',$data)->with('fail', "Thẻ này đã được cấp!")->withInput($request);
 				else if($card->status==2)
-					return  view('admin.cardissuanceview',$data)->with('fail', "Thẻ này đã bị khóa!")->withInput($request);					
+					return  view('admin.cardmanager.cardissuanceview',$data)->with('fail', "Thẻ này đã bị khóa!")->withInput($request);					
 				else{
-					
+
 					if ($validator->fails()) {
 
-					    return view('admin.cardissuanceview',$data)
+					    return view('admin.cardmanager.cardissuanceview',$data)
 					    	->withInput($request)
 					        ->withErrors($validator); 
 		      
@@ -159,13 +159,43 @@ class CardManagerController extends Controller {
 						$Owner_info->AddinfoOwner($request);
 						$VehicleInfo = new VehicleInfo();
 						$VehicleInfo->AddinfoVehicle($request);
-						return  view('admin.cardissuanceview',$data)->with('success', "Thông tin đã được cập nhật!")->withInput($request);
+						return  view('admin.cardmanager.cardissuanceview',$data)->with('success', "Thông tin đã được cập nhật!")->withInput($request);
 					} 
 				}
 			else{		
-		    	return  view('admin.cardissuanceview',$data)->with('fail', "Thẻ này không tồn tại!")->withInput($request);
+		    	return  view('admin.cardmanager.cardissuanceview',$data)->with('fail', "Thẻ này không tồn tại!")->withInput($request);
 			}
-		
+	}
+
+	public function cardinfoinput(){
+		return  view('admin.cardmanager.cardinfoinput'); 
+	}
+
+	public function cardinfoinputpost(Request $request){
+		$cardnumber = $request->get('cardnumber');
+		$city=City::all();
+		$vehicle_type=VehicleType::all();
+		$rules = array(
+		    'cardnumber'    => 'required|min:8|max:8'
+		);
+		$validator = Validator::make($request->all(), $rules);
+		if ($validator->fails()) {
+
+		    return view('admin.cardmanager.cardinfoinput')
+		    	->withInput($request)
+		        ->withErrors($validator); 
+		}else {
+			$i=0;
+			$card = new Card();
+			$card =$card->getCardByNumber($cardnumber);
+			$data=compact('city','vehicle_type','card','i');
+			if($card==null)	return  view('admin.cardmanager.cardinfoinput')->with('fail', "Thẻ này không tồn tại!")->withInput($request); 
+			else return //dd($card);
+			view('admin.cardmanager.cardinfoview',$data);
+		}
+
+		return  view('admin.cardmanager.cardinfoinput'); 
+
 	}
 
 }

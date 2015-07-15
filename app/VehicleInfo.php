@@ -9,7 +9,11 @@ class VehicleInfo extends Model {
 	protected $table = 'Vehicle_info';
 	public function Card()
     {
-        return $this->hasMany('App\Card', 'id_vehicle');
+        return $this->hasOne('App\Card', 'vehicle');
+    }
+    public function vehicleType()
+    {
+        return $this->hasOne('App\VehicleType', 'vehicle_type');
     }
     public  function AddinfoVehicle($input)
     {	

@@ -12,10 +12,11 @@ class CreateBudgetTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('Budget', function(Blueprint $table)
+		Schema::create('Card_Budget', function(Blueprint $table)
 		{
 			$table->increments('id');
-			$table->string('money');
+			$table->string('card_budget_number');
+			$table->integer('turn_number')->default(0);
 			$table->timestamps();
 		});
 	}
