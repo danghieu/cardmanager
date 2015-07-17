@@ -3,7 +3,7 @@
 use App\City;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
-
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 
 class GeneralController extends Controller {
@@ -53,4 +53,31 @@ class GeneralController extends Controller {
 		return view('admin.general.citieslist',$data);
 	}
 
+	public function addnewcity()
+	{
+		return view('admin.general.addnewcity');
+	}
+
+	public function postaddnewcity(Request $request)
+	{
+		$rules = array(
+		    'cityname'    => 'required'
+		);
+
+		$validator = Validator::make($request->all(), $rules);
+
+		if ($validator->fails()) {
+		    return view('admin.general.addnewcity')
+		        ->withErrors($validator) 
+		        ->withInput($request); 
+		} else {
+			if((City::city_exist($request->get('cityname'))==true))
+				return  view('admin.general.addnewcity')->with('fail', "Tỉnh thành này đã tồn tại!");
+			else{
+				$city = new City();
+				$city->addcity($request->get('cityname'));
+		    	return  view('admin.general.addnewcity')->with('success', "Thêm tỉnh thành thành công!");
+			}
+		}
+	}
 }

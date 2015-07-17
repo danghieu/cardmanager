@@ -8,6 +8,16 @@ function updateCityListView() {
 	}
 }
 
+function addNewCity() {
+	if($(".general-body").length>0) {
+		$.ajax("addnewcity", {			
+			success: function(response){
+				$(".general-body").html(response);			
+			}
+		});
+	}
+}
+
 $(document).ready(function(){
 	updateCityListView();
 	ligenerallist=$('.li-city-list');
@@ -20,5 +30,12 @@ $(document).ready(function(){
 		$(this).addClass('active');
 		updateCityListView();
 	});
+
+	$(".general-tools").on('click', '.li-add-city', function(event){
+		event.preventDefault();
+		generaltools.children().children().removeClass('active');
+		$(this).addClass('active');
+		addNewCity();
+	})
 	
 });
