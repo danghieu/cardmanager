@@ -40,3 +40,5 @@ Route::get('citieslistview', 'GeneralController@citieslistview');
 Route::get('citieslist', 'GeneralController@citieslist');
 Route::get('addnewcity', 'GeneralController@addnewcity');
 Route::post('addnewcity', 'GeneralController@postaddnewcity');
+Route::get('addnewvehicle', 'GeneralController@addnewvehicle');
+Route::post('addnewvehicle', 'GeneralController@postaddnewvehicle');

@@ -8,6 +8,7 @@
                 <li class="li-city-list"><a href="#">Cấu hình tỉnh thành</a></li>
                 <li class="li-add-city"><a href="#">Thêm tỉnh thành</a></li>
                 <li class="li-station-fee"><a href="#">Cấu hình phí qua trạm</a></li>
+                <li class="li-add-vehicle"><a href="#">Thêm loại xe</a></li>
             </ul>
         </div>
         <div class="general-body">

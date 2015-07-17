@@ -18,6 +18,16 @@ function addNewCity() {
 	}
 }
 
+function addNewVehicle() {
+	if($(".general-body").length>0) {
+		$.ajax("addnewvehicle", {			
+			success: function(response){
+				$(".general-body").html(response);			
+			}
+		});
+	}
+}
+
 $(document).ready(function(){
 	updateCityListView();
 	ligenerallist=$('.li-city-list');
@@ -36,6 +46,13 @@ $(document).ready(function(){
 		generaltools.children().children().removeClass('active');
 		$(this).addClass('active');
 		addNewCity();
-	})
+	});
+
+	$(".general-tools").on('click', '.li-add-vehicle', function(event){
+		event.preventDefault();
+		generaltools.children().children().removeClass('active');
+		$(this).addClass('active');
+		addNewVehicle();
+	});
 	
 });

@@ -1,6 +1,7 @@
 <?php namespace App\Http\Controllers;
 
 use App\City;
+use App\VehicleType;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
@@ -77,6 +78,34 @@ class GeneralController extends Controller {
 				$city = new City();
 				$city->addcity($request->get('cityname'));
 		    	return  view('admin.general.addnewcity')->with('success', "Thêm tỉnh thành thành công!");
+			}
+		}
+	}
+
+	public function addnewvehicle()
+	{
+		return view('admin.general.addnewvehicle');
+	}
+
+	public function postaddnewvehicle(Request $request)
+	{
+		$rules = array(
+		    'vehiclename'    => 'required'
+		);
+
+		$validator = Validator::make($request->all(), $rules);
+
+		if ($validator->fails()) {
+		    return view('admin.general.addnewvehicle')
+		        ->withErrors($validator) 
+		        ->withInput($request); 
+		} else {
+			if((VehicleType::vehicle_exist($request->get('vehiclename'))==true))
+				return  view('admin.general.addnewvehicle')->with('fail', "Loại xe này đã tồn tại!");
+			else{
+				$vehicle = new VehicleType();
+				$vehicle->addvehicle($request->get('vehiclename'));
+		    	return  view('admin.general.addnewvehicle')->with('success', "Thêm loại xe thành công!");
 			}
 		}
 	}
