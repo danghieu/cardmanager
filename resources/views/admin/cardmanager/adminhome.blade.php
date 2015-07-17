@@ -8,7 +8,7 @@
 		<div class="col-md-2">
 		<ul class="nav nav-pills nav-stacked">
        
-        	<li><a class="cardmanager" href="#">Quản Lý Thẻ</a></li>
+        	<li ><a class="cardmanager" href="#">Quản Lý Thẻ</a></li>
 	        <li><a href="#">Quản Lý Trạm</a></li>
 	        <li><a href="#">Quản Lý Sai Phạm</a></li>
 	        <li><a href="#">Quản Lý Người Dùng</a></li>

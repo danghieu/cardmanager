@@ -1,24 +1,22 @@
 
-function updateCardIssuanceViewPost() {
+function cardinfoinput() {
 
 	if($("div.cardmanager-body").length>0) {
-		$.ajax("cardissuanceview", {
+		$.ajax("cardinfoinput", {
 				type: "post",
-				data:$("#issuance-card-form").serialize(),
+				data:$("#cardinfo-input-form").serialize(),
 				success: function(response){
 					$("div.cardmanager-body").html(response);
 				}
 		});
 	}
 }
-
 $(document).ready(function(){
-	$('.btn-add-infocard').on('click',function(event)
+	$('.btn-cardinfoinput').on('click',function(event)
 	{
 	  	// Stop form from submitting normally
 	  	event.preventDefault();
-	  	updateCardIssuanceViewPost();
-	  	$('.alert-success').hide();
+	  	cardinfoinput();
 	});
 
 	

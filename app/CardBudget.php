@@ -3,9 +3,10 @@
 use Illuminate\Auth\Authenticatable;
 use Illuminate\Database\Eloquent\Model;
 
-class VehicleType extends Model {
+class CardBudget extends Model {
 
 
-	protected $table = 'Vehicle_type';
+	protected $table = 'Card_Budget';
+
 
 }

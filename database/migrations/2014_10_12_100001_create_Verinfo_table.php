@@ -21,7 +21,7 @@ class CreateVerinfoTable extends Migration {
 			$table->string('VIN');
 			$table->string('plates_number');
 			$table->string('color');
-			$table->string('cylinder_capacity');
+			$table->integer('cylinder_capacity');
 			$table->timestamps();
 		});
 	}

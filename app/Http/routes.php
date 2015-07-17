@@ -31,8 +31,9 @@ Route::get('addcardview', 'CardManagerController@addcardview');
 Route::post('addcardview', 'CardManagerController@addcard');
 Route::get('cardissuanceview', 'CardManagerController@cardissuanceview');
 Route::post('cardissuanceview', 'CardManagerController@cardissuance');
-Route::get('addcardinfoview', 'CardManagerController@addcardinfoview');
-
+Route::post('check-cardtoissuance', 'CardManagerController@check_cardtoissuance');
+Route::get('cardinfoinput', 'CardManagerController@cardinfoinput');
+Route::post('cardinfoinput', 'CardManagerController@cardinfoinputpost');
 //General
 Route::get('admingeneral', 'GeneralController@index');
 Route::get('citieslistview', 'GeneralController@citieslistview');

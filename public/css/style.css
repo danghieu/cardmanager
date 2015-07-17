@@ -16,7 +16,7 @@ span {font-weight: bold;}
 .cardmanager-body{padding-top: 10px;}
 .addcardinfo-thumb{width: 30px}
 .container{padding-top: 30px;}
-div.owner-info  .control-label {text-align: left !important;}
+div.cardinfo  .control-label {text-align: left !important;}
 .auth {padding-top: 40px;}
 .navbar-default {
   background-color: rgba(211, 211, 211, 0.75);

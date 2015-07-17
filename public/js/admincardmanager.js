@@ -27,6 +27,15 @@ function updateCardIssuanceView() {
 		});
 	}
 }
+function updatecardinfoinput() {
+	if($(".cardmanager-body").length>0) {
+		$.ajax("cardinfoinput", {			
+			success: function(response){
+				$(".cardmanager-body").html(response);			
+			}
+		});
+	}
+}
 
 $(document).ready(function(){
 	updateCardListView();
@@ -59,6 +68,14 @@ $(document).ready(function(){
 		event.preventDefault();
 		cardmanagertools.children().children().removeClass('active');
 		$(this).addClass('active');
+	});
+
+	$(".cardmanager-tools").on('click', '.li-cardinfo', function(event){
+		event.preventDefault();
+		cardmanagertools.children().children().removeClass('active');
+		$(this).addClass('active');
+		updatecardinfoinput();
+
 	});
 	
 });

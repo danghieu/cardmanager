@@ -10,12 +10,26 @@ function updateCardList(type) {
 		});
 	}
 }
-
+function updateCardListPost() {
+	if($(".cardlist").length>0) {
+		$.ajax("cardslist", {
+				type: "post",
+				data: {"q":$("#q").val(),"_token":$('.form-search input[name=_token]').val()},
+				success: function(response){
+					$(".cardlist").html(response);
+				}
+		});
+	}
+}
 
 $(document).ready(function(){
 	updateCardList(null);
 
-	 $( "select" )
+	$("#q").keyup(function() {
+		updateCardListPost();
+	});
+
+	$( "select" )
   	.change(function () {
     $( "select option:selected" ).each(function() {
      	updateCardList( parseInt($(this).val()));
