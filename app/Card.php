@@ -5,6 +5,7 @@ use Illuminate\Database\Eloquent\Model;
 use App\Owner_info;
 use App\City;
 use App\PrePay;
+use App\CardBudget;
 class Card extends Model {
 	protected $table = 'cards';
 	public function ownerInfo()
@@ -28,11 +29,20 @@ class Card extends Model {
     {
         return $this->hasMany('App\PrePay', 'card');
     }
-
 	public function createcard($number){
 		$this->number=$number;
 		$this->save();
 	}
+
+    public function getcardtoissuance(){
+        $cards = Card::where('status',0);
+        if($cards->count()>0){
+            $card=$cards->first();
+            return $card;
+        }
+        else
+            return null;
+    }
 
 	public static function cardnumber_exist($cardnumber) {
 		if(Card::where("number","=",$cardnumber)->count()>0)
@@ -62,9 +72,14 @@ class Card extends Model {
 
 	public  function addInfoCard($input) {
 		$card = Card::getCardByNumber($input->get('cardnumber'));
-		$card->status=1;
 		$card->place_issuance=$input->get("place_issuance");
 		$card->date_issuance=$input->get("date_issuance");
-		$card->save();
+        $card->status=1;
+        $card->save();
+        $card_budget= new CardBudget();
+        $card_budget->card_budget_number = substr(str_shuffle(str_repeat('ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789',9)),0,9);
+        $card_budget->save();
+        $card_budget->Card()->save($card);
+ 
 	}
 }

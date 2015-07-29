@@ -1,3 +1,9 @@
+<script>
+  $(function() {
+    $( "#date_issuance" ).datepicker({ dateFormat: 'dd-mm-yy' });
+    $( "#birthday" ).datepicker({ dateFormat: 'dd-mm-yy' });
+  });
+  </script>
 <div class="issuance-card ">
 	<form id="issuance-card-form" class="form-horizontal" role="form" method="POST" action="{{ url('addcardview') }}">
 		<input type="hidden" id="_token" name="_token" value="{{ csrf_token() }}">
@@ -6,7 +12,7 @@
 			<div class="form-group">
 				<label class="col-md-4 control-label">Số Thẻ:</label>
 				<div class="col-md-4">
-					<input type="text" class="form-control" id="cardnumber" name="cardnumber" placeholder="Ví dụ: 6A DU T5 F6 G9" value="{{Input::get('cardnumber')}}">
+					<input type="text"  class="form-control" id="cardnumber" name="cardnumber" placeholder="Ví dụ: 6A DU T5 F6 G9" value="{{ Input::get('cardnumber')}}">
 				</div>
 			</div>
 			<div class="form-group">
@@ -22,7 +28,7 @@
 			<div class="form-group">
 				<label class="col-md-4 control-label">Ngày Cấp:</label>
 				<div class="col-md-4">
-					<input type="date" class="form-control" id="date_issuance" name="date_issuance" placeholder="" value=" {{ Input::get('date_issuance')}}" >
+					<input type="text" class="form-control" id="date_issuance" name="date_issuance" placeholder="" value=" {{ Input::get('date_issuance')}}" >
 				</div>
 			</div>
 		@if (count($errors) > 0 )
@@ -84,7 +90,7 @@
 								<div class="form-group">
 									<label class="col-md-4 control-label">Ngày Sinh:</label>
 									<div class="col-md-6">
-										<input type="date" class="form-control" id="birthday" name="birthday" placeholder="" value="{{Input::get('birthday') }}" >
+										<input type="text" class="form-control" id="birthday" name="birthday" placeholder="" value="{{Input::get('birthday') }}" >
 									</div>
 								</div>
 

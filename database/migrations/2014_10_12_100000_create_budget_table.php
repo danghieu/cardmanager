@@ -15,7 +15,7 @@ class CreateBudgetTable extends Migration {
 		Schema::create('Card_Budget', function(Blueprint $table)
 		{
 			$table->increments('id');
-			$table->string('card_budget_number');
+			$table->string('card_budget_number')->nullable();
 			$table->integer('turn_number')->default(0);
 			$table->timestamps();
 		});

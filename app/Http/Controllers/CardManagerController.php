@@ -92,9 +92,51 @@ class CardManagerController extends Controller {
 			}
 		}
 	}
+	public function cardissuanceinput()
+	{	
+		return view('admin.cardmanager.cardissuanceinput');
+	}
 
+	public function getcardissuance()
+	{	
+		$card = new Card();
+		$card=$card->getcardtoissuance();
+		if($card!=null){
+			$data=compact('card');
+			return view('admin.cardmanager.cardissuanceinput',$data);
+		}else return  view('admin.cardmanager.cardissuanceinput')->with('fail', "Hết thẻ để cấp! Vui lòng thêm thẻ!"); 
+
+		
+	}
+	public function cardissuanceinputpost(Request $request)
+	{	
+		$cardnumber = $request->get('cardnumber');
+		$city=City::all();
+		$vehicle_type=VehicleType::all();
+		$rules = array(
+		    'cardnumber'    => 'required|min:8|max:8'
+		);
+		$validator = Validator::make($request->all(), $rules);
+		if ($validator->fails()) {
+
+		    return view('admin.cardmanager.cardissuanceinput')
+		    	->withInput($request)
+		        ->withErrors($validator); 
+		}else {
+			$card = new Card();
+			$card =$card->getCardByNumber($cardnumber);
+			$data=compact('city','vehicle_type','card');
+			if($card==null)	return  view('admin.cardmanager.cardissuanceinput')->with('fail', "Thẻ này không tồn tại!")->withInput($request); 
+			else if ($card->status==1)return  view('admin.cardmanager.cardissuanceinput')->with('fail', "Thẻ này đã cấp!")->withInput($request); 
+			else if ($card->status==2)return  view('admin.cardmanager.cardissuanceinput')->with('fail', "Thẻ này đã khóa!")->withInput($request); 
+			else return //dd($card);
+			view('admin.cardmanager.cardissuanceview',$data);
+		}
+
+		return  view('admin.cardmanager.cardissuanceinput'); 
+	}
 	public function cardissuanceview()
-	{
+	{	
 		$city=City::all();
 		$vehicle_type=VehicleType::all();
 		$data=compact('city','vehicle_type');
@@ -116,7 +158,6 @@ class CardManagerController extends Controller {
 	{
 		$city=City::all();
 		$vehicle_type=VehicleType::all();
-		$data=compact('city','vehicle_type');
 		$cardnumber=$request->get("cardnumber");
 		$rules = array(
 		    'cardnumber'				=> 'required|min:8|max:8',
@@ -141,7 +182,8 @@ class CardManagerController extends Controller {
 
 			$card = new Card();
 			$card =$card->getCardByNumber($cardnumber);
-			if((Card::cardnumber_exist($cardnumber)=="true"))
+			$data=compact('city','vehicle_type');
+			if((Card::cardnumber_exist($cardnumber)=="true")){
 				if($card->status==1)
 					return  view('admin.cardmanager.cardissuanceview',$data)->with('fail', "Thẻ này đã được cấp!")->withInput($request);
 				else if($card->status==2)
@@ -162,6 +204,7 @@ class CardManagerController extends Controller {
 						return  view('admin.cardmanager.cardissuanceview',$data)->with('success', "Thông tin đã được cập nhật!")->withInput($request);
 					} 
 				}
+			}	
 			else{		
 		    	return  view('admin.cardmanager.cardissuanceview',$data)->with('fail', "Thẻ này không tồn tại!")->withInput($request);
 			}

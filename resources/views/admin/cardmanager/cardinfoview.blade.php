@@ -1,9 +1,9 @@
  <script>
   $(function() {
-    $( "#date_issuance" ).datepicker();
-    $( "#date_start" ).datepicker();
-    $( "#expiry_date" ).datepicker();
-    $( "#birthday" ).datepicker();
+    $( "#date_issuance" ).datepicker({ dateFormat: 'dd-mm-yy' });
+    $( "#date_start" ).datepicker({ dateFormat: 'dd-mm-yy' });
+    $( "#expiry_date" ).datepicker({ dateFormat: 'dd-mm-yy' });
+    $( "#birthday" ).datepicker({ dateFormat: 'dd-mm-yy' });
   });
   </script>
 <div class="cardinfo">
@@ -91,25 +91,33 @@
 								<div class="form-group">
 									<label class="col-md-4 control-label">Số Tài Khoản:</label>
 									<div class="col-md-6">
-										<input type="text" class="form-control" id="cardbudgetnumber" name="cardbudgetnumber" placeholder="Ví dụ: 6A DU T5 F6 G9" value="{{ $card->CardBudget->card_budget_number }}">
+										<input type="text" class="form-control" id="cardbudgetnumber" name="cardbudgetnumber" placeholder="Ví dụ: 6A DU T5 F6 G9" value="{{ $card->CardBudget->card_budget_number or '' }}">
 									</div>
 								</div>
 								<div class="form-group">
 									<label class="col-md-4 control-label">Số Lượt:</label>
 									<div class="col-md-6">
-										<input type="number" class="form-control" id="turnnumber" name="turnnumber" placeholder="Ví dụ: 6A DU T5 F6 G9" value="{{ $card->CardBudget->turn_number}}">
+										<input type="number" class="form-control" id="turnnumber" name="turnnumber" placeholder="Ví dụ: 6A DU T5 F6 G9" value="{{ $card->CardBudget->turn_number or ''}}">
 									</div>
 								</div>
 								<div class="form-group">
 									<label class="col-md-4 control-label">Ngày Bắt Đầu:</label>
 									<div class="col-md-6">
-										<input type="text" class="form-control" id="date_start" name="date_start" placeholder="" value=" {{ date('d/m/Y', strtotime($card->PrePay->first()->start_date))  }}" >
+										@if(isset($card->PrePay->first()->start_date))
+										<input type="text" class="form-control" id="date_start" name="date_start" placeholder="" value=" {{ date('d/m/Y', strtotime($card->PrePay->first()->start_date)) or '' }}" >
+										@else 
+										<input type="text" class="form-control" id="date_start" name="date_start" placeholder="" value=" " >										
+										@endif
 									</div>
 								</div>
 								<div class="form-group">
 									<label class="col-md-4 control-label">Ngày Hết Hạn:</label>
 									<div class="col-md-6">
-										<input type="text" class="form-control" id="expiry_date" name="expiry_date" placeholder="" value=" {{ date('d/m/Y', strtotime($card->PrePay->first()->expiry_date)) }}" >
+										@if(isset($card->PrePay->first()->expiry_date))
+										<input type="text" class="form-control" id="date_start" name="date_start" placeholder="" value=" {{ date('d/m/Y', strtotime($card->PrePay->first()->expiry_date)) or '' }}" >
+										@else 
+										<input type="text" class="form-control" id="date_start" name="date_start" placeholder="" value=" " >										
+										@endif
 									</div>
 									<div class="col-md-2"><button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#myModal">...</button></div>
 								</div>	
@@ -133,13 +141,13 @@
         <div class="form-group">
 			<label class="col-md-4 control-label">Số Tài Khoản:</label>
 			<div class="col-md-6">
-				<input type="text" class="form-control" id="cardbudgetnumber" name="cardbudgetnumber" placeholder="Ví dụ: 6A DU T5 F6 G9" value="{{ $card->CardBudget->card_budget_number }}">
+				<input type="text" class="form-control" id="cardbudgetnumber" name="cardbudgetnumber" placeholder="Ví dụ: 6A DU T5 F6 G9" value="{{ $card->CardBudget->card_budget_number or ''}}">
 			</div>
 		</div>
 		<div class="form-group">
 			<label class="col-md-4 control-label">Số Lượt:</label>
 			<div class="col-md-6">
-				<input type="number" class="form-control" id="turnnumber" name="turnnumber" placeholder="Ví dụ: 6A DU T5 F6 G9" value="{{ $card->CardBudget->turn_number}}">
+				<input type="number" class="form-control" id="turnnumber" name="turnnumber" placeholder="Ví dụ: 6A DU T5 F6 G9" value="{{ $card->CardBudget->turn_number or ''}}">
 			</div>
 		</div>
 		<div class="form-group">
@@ -152,13 +160,20 @@
 		<div class="form-group">
 			<label class="col-md-4 control-label">Ngày Bắt Đầu:</label>
 			<div class="col-md-6">
-				<input type="text" class="form-control" id="date_start" name="date_start" placeholder="" value=" {{ date('d/m/Y', strtotime($prepay->start_date))  }}" >
-			</div>
+				@if(isset($card->PrePay->first()->start_date))
+				<input type="text" class="form-control" id="date_start" name="date_start" placeholder="" value=" {{ date('d/m/Y', strtotime($card->PrePay->first()->start_date)) or '' }}" >
+				@else 
+				<input type="text" class="form-control" id="date_start" name="date_start" placeholder="" value=" " >										
+				@endif			</div>
 		</div>
 		<div class="form-group">
 			<label class="col-md-4 control-label">Ngày Hết Hạn:</label>
 			<div class="col-md-6">
-				<input type="text" class="form-control" id="expiry_date" name="expiry_date" placeholder="" value=" {{ date('d/m/Y', strtotime($prepay->expiry_date)) }}" >
+				@if(isset($card->PrePay->first()->expiry_date))
+				<input type="text" class="form-control" id="date_start" name="date_start" placeholder="" value=" {{ date('d/m/Y', strtotime($card->PrePay->first()->expiry_date)) or '' }}" >
+				@else 
+				<input type="text" class="form-control" id="date_start" name="date_start" placeholder="" value=" " >										
+				@endif			
 			</div>
 		</div>
 		@endforeach	

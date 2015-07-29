@@ -18,9 +18,9 @@ function updateAddCardView() {
 	}
 }
 
-function updateCardIssuanceView() {
+function updateCardIssuanceInput() {
 	if($(".cardmanager-body").length>0) {
-		$.ajax("cardissuanceview", {			
+		$.ajax("cardissuanceinput", {			
 			success: function(response){
 				$(".cardmanager-body").html(response);			
 			}
@@ -61,7 +61,7 @@ $(document).ready(function(){
 		event.preventDefault();
 		cardmanagertools.children().children().removeClass('active');
 		$(this).addClass('active');
-		updateCardIssuanceView()
+		updateCardIssuanceInput()
 	});
 
 	$(".cardmanager-tools").on('click', '.li-require', function(event){
