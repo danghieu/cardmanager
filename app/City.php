@@ -12,4 +12,17 @@ class City extends Model {
 		$searched = "%".$searched."%";
 		return City::where('name','LIKE' ,$searched)->get();
 	}
+
+	public function addcity($name){
+		$this->name=$name;
+		$this->save();
+	}
+
+	public static function city_exist($cityname) {
+		$cityname = "%".$cityname."%";
+		if(City::where('name',"LIKE",$cityname)->count()>0)
+			return true;
+		else
+			return false;
+	}
 }
