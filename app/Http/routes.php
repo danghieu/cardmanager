@@ -37,6 +37,7 @@ Route::post('cardissuanceview', 'CardManagerController@cardissuance');
 Route::post('check-cardtoissuance', 'CardManagerController@check_cardtoissuance');
 Route::get('cardinfoinput', 'CardManagerController@cardinfoinput');
 Route::post('cardinfoinput', 'CardManagerController@cardinfoinputpost');
+Route::post('editinfocard', 'CardManagerController@editinfocard');
 //General
 Route::get('admingeneral', 'GeneralController@index');
 Route::get('citieslistview', 'GeneralController@citieslistview');

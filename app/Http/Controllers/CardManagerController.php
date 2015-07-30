@@ -177,9 +177,6 @@ class CardManagerController extends Controller {
 		);
 
 		$validator = Validator::make($request->all(), $rules);
-
-		
-
 			$card = new Card();
 			$card =$card->getCardByNumber($cardnumber);
 			$data=compact('city','vehicle_type');
@@ -207,6 +204,61 @@ class CardManagerController extends Controller {
 			}	
 			else{		
 		    	return  view('admin.cardmanager.cardissuanceview',$data)->with('fail', "Thẻ này không tồn tại!")->withInput($request);
+			}
+	}
+
+	public function editinfocard(Request $request)
+	{
+		$city=City::all();
+		$vehicle_type=VehicleType::all();
+		$cardnumber=$request->get("cardnumber");
+		$rules = array(
+		    'cardnumber'				=> 'required|min:8|max:8',
+		    'lastname'    				=> 'required|min:2',
+		    'firstname'					=> 'required|min:1',
+		    'indentify_card'			=> 'required|min:9',
+		    'birthday'					=> 'required',
+		    'phonenumber'				=> 'required|min:6',
+		    'city'						=> 'required|min:1',
+		    'district'					=> 'required|min:1',
+		    'vehicle_type'				=> 'required|min:1',
+		    'vehicle_brand'				=> 'required|min:1',
+		    'vehicle_VIN'				=> 'required|min:6',
+		    'vehicle_plates_number'		=> 'required|min:4',
+		    'vehicle_cylinder_capacity'	=> 'required',
+		    'vehicle_color'				=> 'required|min:1'
+		);
+
+		$validator = Validator::make($request->all(), $rules);
+			$card = new Card();
+			$card =$card->getCardByNumber($cardnumber);
+			$data=compact('city','vehicle_type','card');
+			if((Card::cardnumber_exist($cardnumber)=="true")){
+				// if($card->status==1)
+				// 	return  view('admin.cardmanager.cardissuanceview',$data)->with('fail', "Thẻ này đã được cấp!")->withInput($request);
+				// else if($card->status==2)
+				// 	return  view('admin.cardmanager.cardissuanceview',$data)->with('fail', "Thẻ này đã bị khóa!")->withInput($request);					
+				// else{
+
+					if ($validator->fails()) {
+
+					    return view('admin.cardmanager.cardinfoview',$data)
+					    	->withInput($request)
+					        ->withErrors($validator); 
+		      
+					} else {
+						// $Owner_info = new Owner_info();
+						// $Owner_info->AddinfoOwner($request);
+						// $VehicleInfo = new VehicleInfo();
+						// $VehicleInfo->AddinfoVehicle($request);
+						$card->editinfocard($request);
+						$data=compact('city','vehicle_type','card');
+						return  view('admin.cardmanager.cardinfoview',$data)->with('success', "Thông tin đã được cập nhật!")->withInput($request);
+					} 
+				//}
+			}	
+			else{		
+		    	return  view('admin.cardmanager.cardinfoview',$data)->with('fail', "Thẻ này không tồn tại!")->withInput($request);
 			}
 	}
 

@@ -26,7 +26,7 @@ class Owner_info extends Model {
     	$Owner_info->last_name=$input->get("lastname");
     	$Owner_info->first_name=$input->get("firstname");
     	$Owner_info->indentify_card=$input->get("indentify_card");
-    	$Owner_info->birthday=$input->get("birthday");
+    	$Owner_info->birthday=date('Y-m-d', strtotime($input->get("birthday")));
     	$Owner_info->phone_number=$input->get("phonenumber");
     	//$Owner_info->nationality=$input->get("nationality");
     	$Owner_info->city=$input->get("city");

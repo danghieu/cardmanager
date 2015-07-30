@@ -48,7 +48,7 @@
 								<div class="form-group">
 									<label class="col-md-4 control-label">Số Thẻ:</label>
 									<div class="col-md-6">
-										<input type="text" class="form-control" id="cardnumber" name="cardnumber" disabled placeholder="Ví dụ: 6A DU T5 F6 G9" value="{{ $card->number}}">
+										<input type="text" class="form-control" id="cardnumber" name="cardnumber"  placeholder="Ví dụ: 6A DU T5 F6 G9" value="{{ $card->number}}">
 									</div>
 								</div>
 								<div class="form-group">
@@ -100,11 +100,12 @@
 										<input type="number" class="form-control" id="turnnumber" name="turnnumber" placeholder="Ví dụ: 6A DU T5 F6 G9" value="{{ $card->CardBudget->turn_number or ''}}">
 									</div>
 								</div>
+								<input type="hidden" id="card_prepay_id" name="card_prepay_id" value="{{ $card->PrePay->first()->id or '' }}">
 								<div class="form-group">
 									<label class="col-md-4 control-label">Ngày Bắt Đầu:</label>
 									<div class="col-md-6">
 										@if(isset($card->PrePay->first()->start_date))
-										<input type="text" class="form-control" id="date_start" name="date_start" placeholder="" value=" {{ date('d/m/Y', strtotime($card->PrePay->first()->start_date)) or '' }}" >
+										<input type="text" class="form-control" id="date_start" name="date_start" placeholder="" value=" {{ date('d-m-Y', strtotime($card->PrePay->first()->start_date))  }}" >
 										@else 
 										<input type="text" class="form-control" id="date_start" name="date_start" placeholder="" value=" " >										
 										@endif
@@ -114,9 +115,9 @@
 									<label class="col-md-4 control-label">Ngày Hết Hạn:</label>
 									<div class="col-md-6">
 										@if(isset($card->PrePay->first()->expiry_date))
-										<input type="text" class="form-control" id="date_start" name="date_start" placeholder="" value=" {{ date('d/m/Y', strtotime($card->PrePay->first()->expiry_date)) or '' }}" >
+										<input type="text" class="form-control" id="expiry_date" name="expiry_date" placeholder="" value=" {{ date('d-m-Y', strtotime($card->PrePay->first()->expiry_date)) }}" >
 										@else 
-										<input type="text" class="form-control" id="date_start" name="date_start" placeholder="" value=" " >										
+										<input type="text" class="form-control" id="expiry_date" name="expiry_date" placeholder="" value=" " >										
 										@endif
 									</div>
 									<div class="col-md-2"><button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#myModal">...</button></div>
@@ -129,62 +130,6 @@
 	</div>	
 
 
-<!-- Modal -->
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel">Thông Tin Tài Khoản</h4>
-      </div>
-      <div class="modal-body">
-        <div class="form-group">
-			<label class="col-md-4 control-label">Số Tài Khoản:</label>
-			<div class="col-md-6">
-				<input type="text" class="form-control" id="cardbudgetnumber" name="cardbudgetnumber" placeholder="Ví dụ: 6A DU T5 F6 G9" value="{{ $card->CardBudget->card_budget_number or ''}}">
-			</div>
-		</div>
-		<div class="form-group">
-			<label class="col-md-4 control-label">Số Lượt:</label>
-			<div class="col-md-6">
-				<input type="number" class="form-control" id="turnnumber" name="turnnumber" placeholder="Ví dụ: 6A DU T5 F6 G9" value="{{ $card->CardBudget->turn_number or ''}}">
-			</div>
-		</div>
-		<div class="form-group">
-			<label class="col-md-4 control-label">Các Ngày Đã Thanh Toán:</label>
-		</div>
-		@foreach($card->PrePay->all() as $prepay)
-		<div class="form-group">
-			<label class="col-md-4 control-label">*:</label>
-		</div>
-		<div class="form-group">
-			<label class="col-md-4 control-label">Ngày Bắt Đầu:</label>
-			<div class="col-md-6">
-				@if(isset($card->PrePay->first()->start_date))
-				<input type="text" class="form-control" id="date_start" name="date_start" placeholder="" value=" {{ date('d/m/Y', strtotime($card->PrePay->first()->start_date)) or '' }}" >
-				@else 
-				<input type="text" class="form-control" id="date_start" name="date_start" placeholder="" value=" " >										
-				@endif			</div>
-		</div>
-		<div class="form-group">
-			<label class="col-md-4 control-label">Ngày Hết Hạn:</label>
-			<div class="col-md-6">
-				@if(isset($card->PrePay->first()->expiry_date))
-				<input type="text" class="form-control" id="date_start" name="date_start" placeholder="" value=" {{ date('d/m/Y', strtotime($card->PrePay->first()->expiry_date)) or '' }}" >
-				@else 
-				<input type="text" class="form-control" id="date_start" name="date_start" placeholder="" value=" " >										
-				@endif			
-			</div>
-		</div>
-		@endforeach	
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
-      </div>
-    </div>
-  </div>
-</div>
 
 
 
@@ -205,7 +150,7 @@
 									<div class="form-group">
 										<label class="col-md-4 control-label">Tên:</label>
 										<div class="col-md-6">
-											<input type="text" class="form-control" name="firstname" value="{{ $card->ownerInfo->first_name  or '' }}" placeholder="A">
+											<input type="text" class="form-control" name="firstname" value="{{ $card->ownerInfo->first_name  }}" placeholder="A">
 										</div>
 									</div>
 
@@ -318,20 +263,69 @@
 					</div>
 				</div>
 			</div>
-
 				<div class="form-group">
-					<div class="col-md-6 col-md-offset-4">
-						<button type="submit" class="btn btn-bg btn-edit-infocard">
+					<div class="col-md-6 col-md-offset-6">
+						<button type="submit" onclick="return confirm('Bạn có chắc chắn không?');" class="btn btn-bg btn-edit-infocard">
 							Chỉnh Sửa
 						</button>
 					</div>
 				</div>
-		
 		</form>
-	
-	
 </div>
+<!-- Modal -->
+<form id="card-budget-info-form" class="form-horizontal" role="form" method="POST" action="{{ url('card-budget-info') }}">
+	<input type="hidden" id="_token" name="_token" value="{{ csrf_token() }}">
+	<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+	  <div class="modal-dialog" role="document">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+	        <h4 class="modal-title" id="myModalLabel">Thông Tin Tài Khoản</h4>
+	      </div>
+	      <div class="modal-body">
+	        <div class="form-group">
+				<label class="col-md-4 control-label">Số Tài Khoản:</label>
+				<div class="col-md-6">
+					<input type="text" class="form-control" id="cardbudgetnumber" name="cardbudgetnumber" placeholder="Ví dụ: 6A DU T5 F6 G9" value="{{ $card->CardBudget->card_budget_number or ''}}">
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-md-4 control-label">Số Lượt:</label>
+				<div class="col-md-6">
+					<input type="number" class="form-control" id="turnnumber" name="turnnumber" placeholder="Ví dụ: 6A DU T5 F6 G9" value="{{ $card->CardBudget->turn_number or ''}}">
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-md-4 control-label">Các Ngày Đã Thanh Toán:</label>
+			</div>
+			@foreach($card->PrePay->all() as $prepay)
+			<input type="hidden" id="card_prepay_id_{{$prepay->id}}" name="card_prepay_id_{{$prepay->id}}" value="{{ $card->PrePay->first()->id }}">	
+			<div class="form-group">
+				<label class="col-md-4 control-label">*:</label>
+			</div>
+			<div class="form-group">
+				<label class="col-md-4 control-label">Ngày Bắt Đầu:</label>
+				<div class="col-md-6">
+					<input type="text" class="form-control" id="date_start_{{$prepay->id}}" name="date_start_{{$prepay->id}}" placeholder="" value=" {{ date('d-m-Y', strtotime($prepay->start_date))  }}" >	
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-md-4 control-label">Ngày Hết Hạn:</label>
+				<div class="col-md-6">
+					<input type="text" class="form-control" id="expiry_date_{{$prepay->id}}" name="expiry_date_{{$prepay->id}}" placeholder="" value=" {{ date('d-m-Y', strtotime($prepay->expiry_date))  }}" >
+				</div>
+			</div>
+			@endforeach	
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+	        <button type="button" class="btn btn-primary btn-edit-cardbudget">Save changes</button>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+</form>
 
-<script src="{{Asset('js/cardissuanceview.js')}}"></script>
+<script src="{{Asset('js/cardinfoview.js')}}"></script>
 <script type="text/javascript" src="{{Asset('/js/jquery-validate/jquery.validate.min.js')}}"></script>
 <script src="{{Asset('js/check-card.js')}}"></script>

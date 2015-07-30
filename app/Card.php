@@ -6,6 +6,7 @@ use App\Owner_info;
 use App\City;
 use App\PrePay;
 use App\CardBudget;
+use App\VehicleInfo;
 class Card extends Model {
 	protected $table = 'cards';
 	public function ownerInfo()
@@ -72,8 +73,8 @@ class Card extends Model {
 
 	public  function addInfoCard($input) {
 		$card = Card::getCardByNumber($input->get('cardnumber'));
-		$card->place_issuance=$input->get("place_issuance");
-		$card->date_issuance=$input->get("date_issuance");
+		$card->place_issuance=date('Y-m-d', strtotime($input->get("place_issuance")));
+		$card->date_issuance=date('Y-m-d', strtotime($input->get("date_issuance")));
         $card->status=1;
         $card->save();
         $card_budget= new CardBudget();
@@ -82,4 +83,47 @@ class Card extends Model {
         $card_budget->Card()->save($card);
  
 	}
+
+    public function editInfoCard($input){
+        $this->status=$input->get('status');
+        $this->place_issuance=$input->get("place_issuance");
+        $this->date_issuance=$input->get("date_issuance");
+        $this->save();
+        $ownerinfo = Owner_info::find($this->owner);
+        $ownerinfo->last_name=$input->get("lastname");
+        $ownerinfo->first_name=$input->get("firstname");
+        $ownerinfo->indentify_card=$input->get("indentify_card");
+        $ownerinfo->birthday=$input->get("birthday");
+        $ownerinfo->phone_number=$input->get("phonenumber");
+        $ownerinfo->city=$input->get("city");
+        $ownerinfo->district=$input->get("district");
+        $ownerinfo->street=$input->get("street");
+        $ownerinfo->save();
+        $VehicleInfo = VehicleInfo::find($this->vehicle);
+        $VehicleInfo->vehicle_type=$input->get("vehicle_type");
+        $VehicleInfo->brand=$input->get("vehicle_brand");
+        $VehicleInfo->VIN=$input->get("vehicle_VIN");
+        $VehicleInfo->plates_number=$input->get("vehicle_plates_number");
+        $VehicleInfo->color=$input->get("vehicle_color");
+        $VehicleInfo->cylinder_capacity=$input->get("vehicle_cylinder_capacity");
+        $VehicleInfo->save();
+        $CardBudget = CardBudget::find($this->card_budget);
+        $CardBudget->turn_number = $input->get("turnnumber");
+        $CardBudget->save();
+        if($input->get("card_prepay_id")==''){
+            $PrePay = new PrePay();
+            $this->PrePay()->save($PrePay);
+            $PrePay->start_date=date('Y-m-d', strtotime($input->get("date_start")));
+            $PrePay->expiry_date=date('Y-m-d', strtotime($input->get("expiry_date")));
+            $PrePay->save();
+        }else {
+            $PrePay = PrePay::find($input->get("card_prepay_id"));
+            $PrePay->start_date=date('Y-m-d', strtotime($input->get("date_start")));
+            $PrePay->expiry_date=date('Y-m-d', strtotime($input->get("expiry_date")));
+            $PrePay->save();
+        }
+        
+        
+        
+    }
 }
