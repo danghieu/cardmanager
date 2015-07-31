@@ -73,7 +73,7 @@ class Card extends Model {
 
 	public  function addInfoCard($input) {
 		$card = Card::getCardByNumber($input->get('cardnumber'));
-		$card->place_issuance=date('Y-m-d', strtotime($input->get("place_issuance")));
+		$card->place_issuance=$input->get("place_issuance");
 		$card->date_issuance=date('Y-m-d', strtotime($input->get("date_issuance")));
         $card->status=1;
         $card->save();
@@ -85,15 +85,16 @@ class Card extends Model {
 	}
 
     public function editInfoCard($input){
+        $this->number=$input->get('cardnumber');
         $this->status=$input->get('status');
         $this->place_issuance=$input->get("place_issuance");
-        $this->date_issuance=$input->get("date_issuance");
+        $this->date_issuance=date('Y-m-d', strtotime($input->get("date_issuance")));
         $this->save();
         $ownerinfo = Owner_info::find($this->owner);
         $ownerinfo->last_name=$input->get("lastname");
         $ownerinfo->first_name=$input->get("firstname");
         $ownerinfo->indentify_card=$input->get("indentify_card");
-        $ownerinfo->birthday=$input->get("birthday");
+        $ownerinfo->birthday=date('Y-m-d', strtotime($input->get("birthday")));
         $ownerinfo->phone_number=$input->get("phonenumber");
         $ownerinfo->city=$input->get("city");
         $ownerinfo->district=$input->get("district");

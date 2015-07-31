@@ -21,21 +21,39 @@ function updateCardListPost() {
 		});
 	}
 }
+function editInfoCardView() {
+	if($("div.cardmanager-body").length>0) {
+		$.ajax("cardinfoinput", {
+				type: "post",
+				data:$("#edit-info-card-form").serialize(),
+				success: function(response){
+					$("div.cardmanager-body").html(response);
+				}
+		});
+	}
+}
 
 $(document).ready(function(){
 	updateCardList(null);
-
+	cardmanagertools = $('.cardmanager-tools');
 	$("#q").keyup(function() {
 		updateCardListPost();
 	});
 
-	$( "select" )
-  	.change(function () {
-    $( "select option:selected" ).each(function() {
-     	updateCardList( parseInt($(this).val()));
-    });
+	$( "select" ).change(function () {
+	    $( "select option:selected" ).each(function() {
+	     	updateCardList( parseInt($(this).val()));
+	    });
     
-  })
-  .change();
+  	}).change();
+
+	$(".cardlist").on('click', '.btn-edit-info-card', function(event)
+	{
+	  	// Stop form from submitting normally
+	  	event.preventDefault();
+	  	editInfoCardView();
+		cardmanagertools.children().children().removeClass('active');
+		$('.li-cardinfo').addClass('active');
+	});
 
 });

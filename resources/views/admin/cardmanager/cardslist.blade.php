@@ -1,5 +1,6 @@
-
- <table class="table table-hover">
+<form id="edit-info-card-form" class="form-horizontal" role="form" method="POST" action="{{ url('as') }}">
+  <input type="hidden" name="_token" value="{{ csrf_token() }}">
+  <table class="table table-hover">
     <thead>
       <tr>
         <th>STT</th>
@@ -23,13 +24,15 @@
          @endif
         </td>
         <td>
-          @if($card->status==0)
-          <button class="btn">Cấp thẻ</button>
-          @endif
-          <button class="btn">Chỉnh sửa</button>
-
+            <input type="hidden"  id="cardnumber" name="cardnumber" value="{{$card->number}}">
+            @if($card->status==0)
+            <button class="btn">Cấp thẻ</button>
+            @endif
+            <button class="btn btn-edit-info-card">Chỉnh sửa</button>
+          
         </td>
       </tr>
     @endforeach
     </tbody>
-</table>
+  </table>
+</form>
