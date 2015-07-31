@@ -1,45 +1,7 @@
- <script>
-  $(function() {
-    $( "#date_issuance" ).datepicker({ dateFormat: 'dd-mm-yy' });
-    $( "#date_start" ).datepicker({ dateFormat: 'dd-mm-yy' });
-    $( "#expiry_date" ).datepicker({ dateFormat: 'dd-mm-yy' });
-    $( "#birthday" ).datepicker({ dateFormat: 'dd-mm-yy' });
-  });
-  </script>
+<form id="card-info-form" class="form-horizontal" role="form" method="POST" action="{{ url('cardinfoview') }}">
 <div class="cardinfo">
-
-	<form id="card-info-form" class="form-horizontal" role="form" method="POST" action="{{ url('cardinfoview') }}">
-			<input type="hidden" id="_token" name="_token" value="{{ csrf_token() }}">
-	
-		@if (count($errors) > 0 )
-			<div class="alert alert-danger">
-				<strong>Lỗi!</strong><br><br>
-				<ul>
-					@foreach ($errors->all() as $error)
-						<li>{{ $error }}</li>
-					@endforeach
-	
-				</ul>
-			</div>
-		@endif
-		@if (isset($fail) )
-			<div class="alert alert-danger">
-				<strong>Thẻ Không Hợp Lệ!</strong><br><br>
-				<ul>
-					<li>{{$fail}}</li>
-				</ul>
-			</div>
-		@endif
-		@if (isset($success) )
-			<div class="alert alert-success">
-				<strong>Thẻ Hợp Lệ!</strong><br><br>
-				<ul>
-					<li>{{$success}}</li>
-				</ul>
-			</div>
-		@endif
 	<div class="col-md-12">
-		<div class="container-fluid card-info col-md-6">
+		<div class="container-fluid card col-md-6">
 			<div class="row">
 				<div class="col-md-12 ">
 					<div class="panel panel-default">
@@ -48,33 +10,29 @@
 								<div class="form-group">
 									<label class="col-md-4 control-label">Số Thẻ:</label>
 									<div class="col-md-6">
-										<input type="text" class="form-control" id="cardnumber" name="cardnumber"  placeholder="Ví dụ: 6A DU T5 F6 G9" value="{{ $card->number}}">
+										<input type="text" readonly class="form-control" id="cardnumber" name="cardnumber"  placeholder="Ví dụ: 6A DU T5 F6 G9" value="{{ $card->number}}">
 									</div>
 								</div>
 								<div class="form-group">
 									<label class="col-md-4 control-label">Trạng Thái:</label>
 									<div class="col-md-6">
-										<select class="form-control" id="status" name="status">
-											<option value="0" <?php if($card->status==0) echo "selected='selected'" ?>><span class="span-primary">Chưa cấp</span></option>
-							                <option value="1" <?php if($card->status==1) echo "selected='selected'" ?>><span class="span-success">Hoạt động</span></option>
-							               	<option value="2" <?php if($card->status==2) echo "selected='selected'" ?>><span class="span-block">Khóa</span></option>
-							            </select>
+										@if($card->status==1)
+											<input type="text" readonly class="form-control" id="status" name="status"  value="Hoạt Động">
+										@elseif($card->status==2)
+											<input type="text" readonly class="form-control" id="status" name="status"  value="Khóa">
+										@endif
 									</div>
 								</div>
 								<div class="form-group">
 									<label class="col-md-4 control-label">Nơi Cấp:</label>
 									<div class="col-md-6">
-										<select class="form-control" id="place_issuance"  value="{{ $card->place_issuance}}" name="place_issuance">
-											@foreach ($city as $pi)
-							                <option value="{{$pi->id}}" <?php if($card->place_issuance==$pi->id) echo "selected='selected'" ?>>{{$pi->name}}</option>
-							                @endforeach
-							            </select>
+										<input type="text" readonly class="form-control" id="place_issuance" name="place_issuance"  value="{{$card->placeIssuance->name}}">
 									</div>
 								</div>
 								<div class="form-group">
 									<label class="col-md-4 control-label">Ngày Cấp:</label>
 									<div class="col-md-6">
-										<input type="text" class="form-control" id="date_issuance" name="date_issuance" value="{{ date('d/m/Y', strtotime($card->date_issuance)) }}" >
+										<input type="text" readonly class="form-control" id="date_issuance" name="date_issuance" value="{{ date('d/m/Y', strtotime($card->date_issuance)) }}" >
 									</div>
 								</div>
 						</div>
@@ -91,13 +49,13 @@
 								<div class="form-group">
 									<label class="col-md-4 control-label">Số Tài Khoản:</label>
 									<div class="col-md-6">
-										<input type="text" class="form-control" id="cardbudgetnumber" name="cardbudgetnumber" placeholder="Ví dụ: 6A DU T5 F6 G9" value="{{ $card->CardBudget->card_budget_number or '' }}">
+										<input type="text" readonly class="form-control" id="cardbudgetnumber" name="cardbudgetnumber" placeholder="Ví dụ: 6A DU T5 F6 G9" value="{{ $card->CardBudget->card_budget_number or '' }}">
 									</div>
 								</div>
 								<div class="form-group">
 									<label class="col-md-4 control-label">Số Lượt:</label>
 									<div class="col-md-6">
-										<input type="number" class="form-control" id="turnnumber" name="turnnumber" placeholder="Ví dụ: 6A DU T5 F6 G9" value="{{ $card->CardBudget->turn_number or ''}}">
+										<input type="number" readonly class="form-control" id="turnnumber" name="turnnumber" placeholder="Ví dụ: 6A DU T5 F6 G9" value="{{ $card->CardBudget->turn_number or ''}}">
 									</div>
 								</div>
 								<input type="hidden" id="card_prepay_id" name="card_prepay_id" value="{{ $card->PrePay->first()->id or '' }}">
@@ -105,9 +63,9 @@
 									<label class="col-md-4 control-label">Ngày Bắt Đầu:</label>
 									<div class="col-md-6">
 										@if(isset($card->PrePay->first()->start_date))
-										<input type="text" class="form-control" id="date_start" name="date_start" placeholder="" value=" {{ date('d-m-Y', strtotime($card->PrePay->first()->start_date))  }}" >
+										<input type="text" readonly class="form-control" id="date_start" name="date_start" placeholder="" value=" {{ date('d-m-Y', strtotime($card->PrePay->first()->start_date))  }}" >
 										@else 
-										<input type="text" class="form-control" id="date_start" name="date_start" placeholder="" value=" " >										
+										<input type="text" readonly class="form-control" id="date_start" name="date_start" placeholder="" value=" " >										
 										@endif
 									</div>
 								</div>
@@ -115,9 +73,9 @@
 									<label class="col-md-4 control-label">Ngày Hết Hạn:</label>
 									<div class="col-md-6">
 										@if(isset($card->PrePay->first()->expiry_date))
-										<input type="text" class="form-control" id="expiry_date" name="expiry_date" placeholder="" value=" {{ date('d-m-Y', strtotime($card->PrePay->first()->expiry_date)) }}" >
+										<input type="text" readonly class="form-control" id="expiry_date" name="expiry_date" placeholder="" value=" {{ date('d-m-Y', strtotime($card->PrePay->first()->expiry_date)) }}" >
 										@else 
-										<input type="text" class="form-control" id="expiry_date" name="expiry_date" placeholder="" value=" " >										
+										<input type="text" readonly class="form-control" id="expiry_date" name="expiry_date" placeholder="" value=" " >										
 										@endif
 									</div>
 									<div class="col-md-2"><button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#myModal">...</button></div>
@@ -143,35 +101,35 @@
 									<div class="form-group">
 										<label class="col-md-4 control-label">Họ và tên lót:</label>
 										<div class="col-md-6">
-											<input type="text" class="form-control" name="lastname" value="{{ $card->ownerInfo->last_name or '' }}" placeholder="Nguyễn Văn">
+											<input type="text" readonly class="form-control" name="lastname" value="{{ $card->ownerInfo->last_name or '' }}" placeholder="Nguyễn Văn">
 										</div>
 									</div>
 
 									<div class="form-group">
 										<label class="col-md-4 control-label">Tên:</label>
 										<div class="col-md-6">
-											<input type="text" class="form-control" name="firstname" value="{{ $card->ownerInfo->first_name  or '' }}" placeholder="A">
+											<input type="text" readonly class="form-control" name="firstname" value="{{ $card->ownerInfo->first_name  or '' }}" placeholder="A">
 										</div>
 									</div>
 
 									<div class="form-group">
 										<label class="col-md-4 control-label">CMND:</label>
 										<div class="col-md-6">
-											<input type="number" class="form-control" id="indentify_card"  value="{{ $card->ownerInfo->indentify_card  or ''}}" name="indentify_card" >
+											<input type="number" readonly class="form-control" id="indentify_card"  value="{{ $card->ownerInfo->indentify_card  or ''}}" name="indentify_card" >
 										</div>
 									</div>
 
 									<div class="form-group">
 										<label class="col-md-4 control-label">Ngày Sinh:</label>
 										<div class="col-md-6">
-											<input type="text" class="form-control" id="birthday" name="birthday" placeholder="" value="{{ date('d/m/Y', strtotime($card->ownerInfo->birthday)) }}" >
+											<input type="text" readonly class="form-control" id="birthday" name="birthday" placeholder="" value="{{ date('d/m/Y', strtotime($card->ownerInfo->birthday)) }}" >
 										</div>
 									</div>
 
 									<div class="form-group">
 										<label class="col-md-4 control-label">Điện Thoại:</label>
 										<div class="col-md-6">
-											<input type="number" class="form-control" id="phonenumber" value="{{ $card->ownerInfo->phone_number or ''}}"  name="phonenumber">
+											<input type="number" readonly class="form-control" id="phonenumber" value="{{ $card->ownerInfo->phone_number or ''}}"  name="phonenumber">
 										</div>
 									</div>
 
@@ -181,11 +139,7 @@
 									<div class="form-group">
 										<label class="col-md-3 col-md-offset-1 control-label">Thành Phố:</label>
 										<div class="col-md-6">
-											<select class="form-control" id="city" name="city">
-												@foreach ($city as $ct)
-								                <option value="{{$ct->id}}"<?php if( $card->ownerInfo->city==$ct->id) echo "selected='selected'" ?>>{{$ct->name}}</option>
-								                @endforeach
-								            </select>
+											<input type="text" readonly class="form-control" id="city" name="city"  value="{{$card->ownerInfo->City->name}}">
 										</div>
 									</div>
 									<div class="form-group">
@@ -217,11 +171,8 @@
 									<div class="form-group">
 										<label class="col-md-4 control-label">Loại Xe:</label>
 										<div class="col-md-6">
-											<select class="form-control" id="vehicle_type" name="vehicle_type" >
-												@foreach ($vehicle_type as $vt)
-								                <option value="{{$vt->id}}" <?php if( $card->vehicleInfo->vehicle_type==$vt->id) echo "selected='selected'" ?>>{{$vt->name}}</option>
-								                @endforeach
-								            </select>
+										 	<input type="text" readonly class="form-control" id="vehicle_type" name="vehicle_type"  value="{{$card->vehicleInfo->vehicleType->name}}">
+
 										</div>
 									</div>
 
@@ -263,14 +214,6 @@
 					</div>
 				</div>
 			</div>
-				<div class="form-group">
-					<div class="col-md-6 col-md-offset-6">
-						<button type="submit" onclick="return confirm('Bạn có chắc chắn không?');" class="btn btn-bg btn-edit-infocard">
-							Chỉnh Sửa
-						</button>
-					</div>
-				</div>
-		</form>
 </div>
 <!-- Modal -->
 <form id="card-budget-info-form" class="form-horizontal" role="form" method="POST" action="{{ url('card-budget-info') }}">
@@ -319,13 +262,9 @@
 	      </div>
 	      <div class="modal-footer">
 	        <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
-	        <button type="button" class="btn btn-primary btn-edit-cardbudget">Cập nhật</button>
-	      </div>
+	       </div>
 	    </div>
 	  </div>
 	</div>
 </form>
 
-<script src="{{Asset('js/cardinfoview.js')}}"></script>
-<script type="text/javascript" src="{{Asset('/js/jquery-validate/jquery.validate.min.js')}}"></script>
-<script src="{{Asset('js/check-card.js')}}"></script>

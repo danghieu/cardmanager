@@ -7,8 +7,13 @@ use App\City;
 use App\PrePay;
 use App\CardBudget;
 use App\VehicleInfo;
+use App\User;
 class Card extends Model {
 	protected $table = 'cards';
+    public function User()
+    {
+        return $this->belongsTo('App\User', 'user');
+    }
 	public function ownerInfo()
     {
         return $this->belongsTo('App\Owner_info', 'owner');
@@ -18,7 +23,7 @@ class Card extends Model {
         return $this->belongsTo('App\VehicleInfo', 'vehicle');
     }
 
-    public function City()
+    public function placeIssuance()
     {
         return $this->belongsTo('App\City', 'place_issuance');
     }

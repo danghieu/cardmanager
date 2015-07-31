@@ -13,7 +13,7 @@ class VehicleInfo extends Model {
     }
     public function vehicleType()
     {
-        return $this->hasOne('App\VehicleType', 'vehicle_type');
+        return $this->belongsTo('App\VehicleType', 'vehicle_type');
     }
     public  function AddinfoVehicle($input)
     {	

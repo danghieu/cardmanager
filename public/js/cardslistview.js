@@ -21,11 +21,11 @@ function updateCardListPost() {
 		});
 	}
 }
-function editInfoCardView() {
+function editInfoCardView(cardnumber) {
 	if($("div.cardmanager-body").length>0) {
 		$.ajax("cardinfoinput", {
 				type: "post",
-				data:$("#edit-info-card-form").serialize(),
+				data: {"cardnumber":cardnumber,"_token":$('#edit-info-card-form input[name=_token]').val()},
 				success: function(response){
 					$("div.cardmanager-body").html(response);
 				}
@@ -51,7 +51,8 @@ $(document).ready(function(){
 	{
 	  	// Stop form from submitting normally
 	  	event.preventDefault();
-	  	editInfoCardView();
+	  	var cardnumber = $(this).siblings("#cardnumber").val();
+	  	editInfoCardView(cardnumber);
 		cardmanagertools.children().children().removeClass('active');
 		$('.li-cardinfo').addClass('active');
 	});

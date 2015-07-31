@@ -15,7 +15,7 @@ class Owner_info extends Model {
     }
     public function City()
     {
-        return $this->hasOne('App\City', 'city');
+        return $this->belongsTo('App\City', 'city');
     }
     public  function AddinfoOwner($input)
     {	
