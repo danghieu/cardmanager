@@ -12,9 +12,19 @@ function updateCitiesList(type) {
 		});
 	}
 }
+function addnewCity(){
 
+	if($(".addnewcity").length>0) {
+		$.ajax("addnewcity", {			
+			success: function(response){
+				$(".addnewcity").html(response);			
+			}
+		});
+	}
+}
 $(document).ready(function(){
 	updateCitiesList(null);
+	addnewCity();
 	$(".input-group-btn").on('click', function(event){
 		event.preventDefault();
 		updateCitiesList(null);

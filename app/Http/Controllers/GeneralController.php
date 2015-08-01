@@ -68,16 +68,16 @@ class GeneralController extends Controller {
 		$validator = Validator::make($request->all(), $rules);
 
 		if ($validator->fails()) {
-		    return view('admin.general.addnewcity')
+		    return view('admin.general.citieslistview')
 		        ->withErrors($validator) 
 		        ->withInput($request); 
 		} else {
 			if((City::city_exist($request->get('cityname'))==true))
-				return  view('admin.general.addnewcity')->with('fail', "Tỉnh thành này đã tồn tại!");
+				return  view('admin.general.citieslistview')->with('fail', "Tỉnh thành này đã tồn tại!");
 			else{
 				$city = new City();
 				$city->addcity($request->get('cityname'));
-		    	return  view('admin.general.addnewcity')->with('success', "Thêm tỉnh thành thành công!");
+		    	return  view('admin.general.citieslistview')->with('success', "Thêm tỉnh thành thành công!");
 			}
 		}
 	}
