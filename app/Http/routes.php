@@ -53,4 +53,5 @@ Route::controllers([
 //User
 	Route::get('cardinfo', 'User\CardController@cardinfo');
 	Route::get('cardinfoview', 'User\CardController@cardinfoview');
-
+	Route::get('addcardinfo', 'User\CardController@addcardinfo');
+	Route::post('addcardinfopost', 'User\CardController@addcardinfopost');
