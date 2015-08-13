@@ -2,7 +2,8 @@ function updatecardinfo() {
 	if($(".panel").length>0) {
 		$.ajax("cardinfo", {			
 			success: function(response){
-				$(".panel").html(response);		
+				$(".panel").html(response).hide();	
+				$(".panel").fadeIn(700);	
 			}
 		});
 	}

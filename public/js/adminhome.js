@@ -20,14 +20,16 @@ function updateGeneral() {
 
 $(document).ready(function(){
 
-	$("div.container").on('click', '.cardmanager', function(event){
+	$("body").on('click', '.cardmanager', function(event){
+	// $("div.container").on('click', '.cardmanager', function(event){
 		$('li').removeClass('active');
 		$(this).parent().addClass('active');
 		event.preventDefault();
 		updateCardMananger();
 	});
 
-	$("div.container").on('click', '.general', function(event){
+	$("body").on('click', '.general', function(event){
+	//$("div.container").on('click', '.general', function(event){
 		$('li').removeClass('active');
 		$(this).parent().addClass('active');
 		event.preventDefault();
