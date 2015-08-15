@@ -8,9 +8,9 @@ function updateCityListView() {
 	}
 }
 
-function addNewCity() {
+function listStationFee() {
 	if($(".general-body").length>0) {
-		$.ajax("addnewcity", {			
+		$.ajax("liststationfee", {			
 			success: function(response){
 				$(".general-body").html(response);			
 			}
@@ -18,15 +18,6 @@ function addNewCity() {
 	}
 }
 
-function addNewVehicle() {
-	if($(".general-body").length>0) {
-		$.ajax("addnewvehicle", {			
-			success: function(response){
-				$(".general-body").html(response);			
-			}
-		});
-	}
-}
 
 $(document).ready(function(){
 	updateCityListView();
@@ -41,18 +32,11 @@ $(document).ready(function(){
 		updateCityListView();
 	});
 
-	$(".general-tools").on('click', '.li-add-city', function(event){
+	$(".general-tools").on('click', '.li-station-fee', function(event){
 		event.preventDefault();
 		generaltools.children().children().removeClass('active');
 		$(this).addClass('active');
-		addNewCity();
-	});
-
-	$(".general-tools").on('click', '.li-add-vehicle', function(event){
-		event.preventDefault();
-		generaltools.children().children().removeClass('active');
-		$(this).addClass('active');
-		addNewVehicle();
+		listStationFee();
 	});
 	
 });

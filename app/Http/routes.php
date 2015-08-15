@@ -47,7 +47,8 @@ Route::controllers([
 	Route::post('addnewcity', 'GeneralController@postaddnewcity');
 	Route::get('addnewvehicle', 'GeneralController@addnewvehicle');
 	Route::post('addnewvehicle', 'GeneralController@postaddnewvehicle');
-
+	Route::get('liststationfee', 'GeneralController@liststationfee');
+	Route::get('vehiclelist', 'GeneralController@vehiclelist');
 
 
 //User
