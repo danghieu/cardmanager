@@ -46,7 +46,7 @@
         <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
   </head>
-  <body class="skin-blue sidebar-mini">
+  <body class="skin-blue sidebar-mini layout-boxed">
     <div class="wrapper">
 
       <header class="main-header">
@@ -324,6 +324,7 @@
       <!-- Content Wrapper. Contains page content -->
       <div class="content-wrapper">
         <!-- Content Header (Page header) -->
+          @yield('content-header')
          	<div class="container">
         <div class="content col-sm-12 ">
             @yield("content")
