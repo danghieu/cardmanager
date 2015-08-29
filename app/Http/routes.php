@@ -51,8 +51,12 @@ Route::controllers([
 	Route::get('vehiclelist', 'GeneralController@vehiclelist');
 
 
-//User
+	//User
 	Route::get('cardinfo', 'User\CardController@cardinfo');
 	Route::get('cardinfoview', 'User\CardController@cardinfoview');
 	Route::get('addcardinfo', 'User\CardController@addcardinfo');
 	Route::post('addcardinfopost', 'User\CardController@addcardinfopost');
+
+	//User manager
+	Route::get('usermanager', 'User\UserManagerController@index');
+	Route::get('userlistview', 'User\UserManagerController@userlistview');

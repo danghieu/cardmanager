@@ -18,6 +18,16 @@ function updateGeneral() {
 	}
 }
 
+function updateUser() {
+	if($(".panel").length>0) {
+		$.ajax("usermanager", {
+			success: function(response){
+				$(".panel").html(response);
+			}
+		});
+	}
+}
+
 $(document).ready(function(){
 
 	$("body").on('click', '.cardmanager', function(event){
@@ -34,5 +44,13 @@ $(document).ready(function(){
 		$(this).parent().addClass('active');
 		event.preventDefault();
 		updateGeneral();
+	});
+
+	$("body").on('click', '.usermanager', function(event){
+	//$("div.container").on('click', '.general', function(event){
+		$('li').removeClass('active');
+		$(this).parent().addClass('active');
+		event.preventDefault();
+		updateUser();
 	});
 });

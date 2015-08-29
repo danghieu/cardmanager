@@ -36,4 +36,9 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
         return $this->hasMany('App\Card', 'user');
     }
 
+    public static function getUsers($searched) {
+		$searched = "%".$searched."%";
+		return User::where('name','LIKE' ,$searched)->get();
+	}
+
 }

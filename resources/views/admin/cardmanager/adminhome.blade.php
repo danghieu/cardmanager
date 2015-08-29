@@ -11,7 +11,7 @@
     	<li ><a class="cardmanager" href="#"><i class="fa fa-circle-o"></i>Quản Lý Thẻ</a></li>
         <li><a href="#"><i class="fa fa-circle-o"></i>Quản Lý Trạm</a></li>
         <li><a href="#"><i class="fa fa-circle-o"></i>Quản Lý Sai Phạm</a></li>
-        <li><a href="#"><i class="fa fa-circle-o"></i>Quản Lý Người Dùng</a></li>
+        <li><a class="usermanager"><i class="fa fa-circle-o"></i>Quản Lý Người Dùng</a></li>
         <li><a class="general" href="#"><i class="fa fa-circle-o"></i>Quản Lý Mục Chung</a></li>
       </ul>
     </li>
