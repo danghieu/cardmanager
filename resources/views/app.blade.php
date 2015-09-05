@@ -62,7 +62,7 @@
 	</nav>
 
 	
-	<div class="container">
+	<div class="container-user">
         <div class="content col-sm-12 ">
             @yield("content")
         </div>

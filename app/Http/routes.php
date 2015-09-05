@@ -47,9 +47,10 @@ Route::controllers([
 	Route::post('addnewcity', 'GeneralController@postaddnewcity');
 	Route::get('addnewvehicle', 'GeneralController@addnewvehicle');
 	Route::post('addnewvehicle', 'GeneralController@postaddnewvehicle');
-	Route::get('liststationfee', 'GeneralController@liststationfee');
+	Route::get('vehicle', 'GeneralController@vehicle');
 	Route::get('vehiclelist', 'GeneralController@vehiclelist');
-
+	Route::get('stationfee', 'GeneralController@stationfee');
+	Route::get('stationfeelist', 'GeneralController@stationfeelist');
 
 	//User
 	Route::get('cardinfo', 'User\CardController@cardinfo');
@@ -60,3 +61,7 @@ Route::controllers([
 	//User manager
 	Route::get('usermanager', 'User\UserManagerController@index');
 	Route::get('userlistview', 'User\UserManagerController@userlistview');
+
+	//User payment 
+	Route::get('payment', 'User\PaymentController@payment');
+	Route::get('paymentinfo', 'User\PaymentController@paymentinfo');

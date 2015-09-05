@@ -29,8 +29,10 @@
 				</li>
 			</ul>
 		</div>
-		<div class="card-info-view">
-			
+		<div class="panel-content">
+			<div class="card-info-view">
+				
+			</div>
 		</div>
 
 	</div>

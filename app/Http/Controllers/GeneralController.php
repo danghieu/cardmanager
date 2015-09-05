@@ -2,6 +2,7 @@
 
 use App\City;
 use App\VehicleType;
+use App\StationFee;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
@@ -82,9 +83,9 @@ class GeneralController extends Controller {
 		}
 	}
 
-	public function liststationfee()
+	public function vehicle()
 	{
-		return view('admin.general.liststationfee');
+		return view('admin.general.vehicle');
 	}
 
 	public function vehiclelist()
@@ -109,17 +110,30 @@ class GeneralController extends Controller {
 		$validator = Validator::make($request->all(), $rules);
 
 		if ($validator->fails()) {
-		    return view('admin.general.liststationfee')
+		    return view('admin.general.vehicle')
 		        ->withErrors($validator) 
 		        ->withInput($request); 
 		} else {
 			if((VehicleType::vehicle_exist($request->get('vehiclename'))==true))
-				return  view('admin.general.liststationfee')->with('fail', "Loại xe này đã tồn tại!");
+				return  view('admin.general.vehicle')->with('fail', "Loại xe này đã tồn tại!");
 			else{
 				$vehicle = new VehicleType();
 				$vehicle->addvehicle($request->get('vehiclename'));
-		    	return  view('admin.general.liststationfee')->with('success', "Thêm loại xe thành công!");
+		    	return  view('admin.general.vehicle')->with('success', "Thêm loại xe thành công!");
 			}
 		}
+	}
+
+	public function stationfee()
+	{
+		return view('admin.general.stationfee');
+	}
+
+	public function stationfeelist()
+	{
+		$stationfees=StationFee::all();
+		$stt=1;
+		$data=compact('stationfees','stt');
+		return view('admin.general.stationfeelist',$data);
 	}
 }

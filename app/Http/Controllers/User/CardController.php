@@ -43,7 +43,7 @@ class CardController extends Controller {
 
 	public function cardinfo()
 	{
-		return view('user.cardinfo');
+		return view('user.cardmanager.cardinfo');
 	}
 
 	public function cardinfoview(Request $request)
@@ -52,13 +52,13 @@ class CardController extends Controller {
 		$card = new Card();
 		$card =$card->getCardByNumber($cardnumber);
 		$data = compact('card');
-		return view('user.cardinfoview',$data);
+		return view('user.cardmanager.cardinfoview',$data);
 	}
 	public function addcardinfo()
 	{
 		$vehicle_type=VehicleType::all();
 		$data = compact('vehicle_type');
-		return view('user.addcardinfo',$data);
+		return view('user.cardmanager.addcardinfo',$data);
 	}
 
 	public function addcardinfopost(Request $request)
@@ -78,7 +78,7 @@ class CardController extends Controller {
 		$validator = Validator::make($request->all(), $rules);
 		if ($validator->fails()) {
 
-		    return view('user.addcardinfo',$data)
+		    return view('user.cardmanager.addcardinfo',$data)
 		    	->withInput($request)
 		        ->withErrors($validator); 
   
@@ -93,18 +93,18 @@ class CardController extends Controller {
 			$card = new Card();
 			$card =$card->getCardByNumber($cardnumber);
 			if($card==null)
-				 return view('user.addcardinfo',$data)->with('fail', "Thẻ này không tồn tại!")->withInput($request);
+				 return view('user.cardmanager.addcardinfo',$data)->with('fail', "Thẻ này không tồn tại!")->withInput($request);
 			else if($card->user!=null)
-				 return view('user.addcardinfo',$data)->with('fail', "Thẻ này đã có người dùng!")->withInput($request);
+				 return view('user.cardmanager.addcardinfo',$data)->with('fail', "Thẻ này đã có người dùng!")->withInput($request);
 			else {
 				if($card->ownerInfo->last_name==$lastname&&$card->ownerInfo->first_name==$firstname
 					&&$card->ownerInfo->indentify_card==$indentify_card&&$card->vehicleInfo->vehicle_type==$vehicle_type
 					&&$card->vehicleInfo->brand==$vehicle_brand&&$card->vehicleInfo->plates_number==$vehicle_plates_number){
 					Auth::user()->Card()->save($card);
 					$data = compact('vehicle_type','card');
-					return view('user.cardinfoview',$data);
+					return view('user.cardmanager.cardinfoview',$data);
 				}else {
-				 	return view('user.addcardinfo',$data)->with('fail', "Thông tin Không hợp lệ!")->withInput($request);
+				 	return view('user.cardmanager.addcardinfo',$data)->with('fail', "Thông tin Không hợp lệ!")->withInput($request);
 				}
 
 			}
@@ -114,7 +114,7 @@ class CardController extends Controller {
 		$card = new Card();
 		$card =$card->getCardByNumber($cardnumber);
 		$data = compact('card');
-		return view('user.cardinfoview',$data);
+		return view('user.cardmanager.cardinfoview',$data);
 	}
 
 }

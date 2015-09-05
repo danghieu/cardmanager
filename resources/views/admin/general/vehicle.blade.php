@@ -45,4 +45,4 @@
 	
 </div>
 
-<script src="{{Asset('js/general/liststationfee.js')}}"></script>
+<script src="{{Asset('js/general/vehicle.js')}}"></script>
