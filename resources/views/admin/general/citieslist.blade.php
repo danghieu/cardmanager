@@ -13,9 +13,12 @@
         <td>{{$stt++}}</td>
         <td>{{$city->name}}</td>
         <td>
-          <button class="btn">Cấu hình</button>
+            <input type="hidden"  id="citynumber" name="citynumber" value="{{$city->id}}">
+            <button class="btn btn-primary btn-cauhinh">Cấu hình</button>
         </td>
       </tr>
     @endforeach
     </tbody>
 </table>
+
+<script src="{{Asset('js/general/citieslist.js')}}"></script>

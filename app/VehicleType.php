@@ -18,6 +18,14 @@ class VehicleType extends Model {
 		$this->save();
 	}
 
+	public static function findVehicleById($id){
+		return VehicleType::where('id','=',$id)->get();
+	}
+
+	public static function updateVehicle($id,$name,$fee){
+		VehicleType::where('id','=',$id)->update(['name' => $name, 'fee' => $fee]);
+	}
+
 	public static function vehicle_exist($name) {
 		$name = "%".$name."%";
 		if(VehicleType::where('name',"LIKE",$name)->count()>0)

@@ -14,10 +14,12 @@
         <td>{{$vehicle->name}}</td>
         <td>{{$vehicle->fee}}</td>
         <td>
-          <button class="btn">Cấu hình</button>
-          <button class="btn">Xóa</button>
+          <input type="hidden"  id="vehiclenumber" name="vehiclenumber" value="{{$vehicle->id}}">
+          <button class="btn btn-primary btn-cauhinh">Cấu hình</button>
         </td>
       </tr>
     @endforeach
     </tbody>
 </table>
+
+<script src="{{Asset('js/general/vehicleslist.js')}}"></script>

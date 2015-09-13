@@ -41,8 +41,11 @@ class GeneralController extends Controller {
 		return view('admin.general.general');
 	}
 
-	public function citieslistview()
+	public function citieslistview(Request $request)
 	{
+		$id = $request->citynumber;
+		$name = $request->cityname;
+		City::updateCity($id,$name);
 		return view('admin.general.citieslistview');
 	}
 
@@ -83,8 +86,12 @@ class GeneralController extends Controller {
 		}
 	}
 
-	public function vehicle()
+	public function vehicle(Request $request)
 	{
+		$id = $request->vehiclenumber;
+		$name = $request->vehiclename;
+		$fee = $request->vehiclefee;
+		VehicleType::updateVehicle($id,$name,$fee);
 		return view('admin.general.vehicle');
 	}
 
@@ -135,5 +142,19 @@ class GeneralController extends Controller {
 		$stt=1;
 		$data=compact('stationfees','stt');
 		return view('admin.general.stationfeelist',$data);
+	}
+
+	public function cauhinhcity(Request $request){
+		$id = $request->get('citynumber');
+		$city = City::findCityById($id);
+		$data = compact('city');
+		return view('admin.general.cauhinhcity', $data);
+	}
+
+	public function cauhinhvehicle(Request $request){
+		$id = $request->get('vehiclenumber');
+		$vehicle = VehicleType::findVehicleById($id);
+		$data = compact('vehicle');
+		return view('admin.general.cauhinhvehicle', $data);
 	}
 }

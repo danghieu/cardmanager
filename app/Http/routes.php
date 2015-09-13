@@ -51,6 +51,8 @@ Route::controllers([
 	Route::get('vehiclelist', 'GeneralController@vehiclelist');
 	Route::get('stationfee', 'GeneralController@stationfee');
 	Route::get('stationfeelist', 'GeneralController@stationfeelist');
+	Route::get('cauhinhcity', 'GeneralController@cauhinhcity');
+	Route::get('cauhinhvehicle', 'GeneralController@cauhinhvehicle');
 
 	//User
 	Route::get('cardinfo', 'User\CardController@cardinfo');

@@ -18,6 +18,14 @@ class City extends Model {
 		$this->save();
 	}
 
+	public static function findCityById($id) {
+		return City::where('id','=',$id)->get();
+	}
+
+	public static function updateCity($id,$name) {
+		City::where('id','=',$id)->update(['name' => $name]);
+	}
+
 	public static function city_exist($cityname) {
 		$cityname = "%".$cityname."%";
 		if(City::where('name',"LIKE",$cityname)->count()>0)

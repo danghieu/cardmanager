@@ -18,7 +18,7 @@
         <td>{{$user->email}}</td>
         <td> </td>
         <td>
-          <button class="btn">
+          <button class="btn btn-primary">
           @if($user->level==1)
             Người dùng
           @elseif($user->level==2)
@@ -29,7 +29,7 @@
           </button>
         </td>
         <td>
-          <button class="btn">
+          <button class="btn btn-primary">
           @if($user->status==1)
             Hoạt động
           @else
