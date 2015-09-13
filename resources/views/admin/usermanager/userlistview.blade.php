@@ -18,26 +18,45 @@
         <td>{{$user->email}}</td>
         <td> </td>
         <td>
-          <button class="btn btn-primary">
-          @if($user->level==1)
-            Người dùng
-          @elseif($user->level==2)
-            Quản lý
-          @elseif($user->level==3)
-            Admin
-          @endif
-          </button>
+          <div class="dropdown">
+            <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">
+              @if($user->level==1)
+                Người dùng
+              @elseif($user->level==2)
+                Quản lý
+              @elseif($user->level==3)
+                Admin
+              @endif
+            <span class="caret"></span></button>
+            <ul class="dropdown-menu">
+              <li><a href="#">Người dùng</a></li>
+              <li><a href="#">Quản lý</a></li>
+              <li><a href="#">Admin</a></li>
+            </ul>
+          </div>
         </td>
         <td>
-          <button class="btn btn-primary">
           @if($user->status==1)
-            Hoạt động
+          <div class="dropdown">
+            <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
+              Hoạt động
+            <span class="caret"></span></button>
+            <ul class="dropdown-menu">
+              <li><a href="#">Ngừng hoạt động</a></li>
+          </div>
           @else
-            Ngừng hoạt động
+          <div class="dropdown">
+            <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">
+              Ngừng hoạt động
+            <span class="caret"></span></button>
+            <ul class="dropdown-menu">
+              <li><a href="#">Ngừng hoạt động</a></li>
+          </div>
           @endif
-          </button>
         </td>
       </tr>
     @endforeach
     </tbody>
 </table>
+
+<script src="{{Asset('js/general/userlist.js')}}"></script>
